@@ -8,7 +8,7 @@ RUN python -m pip install --upgrade pip
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy backend code
-COPY backend/ ./backend
+COPY backend/
 
 # Add backend to Python path
 ENV PYTHONPATH=/app/backend
