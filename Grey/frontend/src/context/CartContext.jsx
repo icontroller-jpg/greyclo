@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState, useCallback } from "react";
 import { AuthContext } from "./AuthContext";
-import { getCart, addCartItem, updateCartItem, removeCartItem } from "../services/cartService";
+import { getCart, addCartItem, updateCartItem, removeCartItem } from "../services/cartService.js";
 
 export const CartContext = createContext();
 
