@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { CartContext } from "../context/CartContext";
-import { createOrder, verifyPayment } from "../services/orderService";
+import { createOrder, verifyPayment } from "../services/orderService.js";
 import { loadRazorpayScript } from "../services/loadRazorpay";
 import "./Checkout.css";
 
