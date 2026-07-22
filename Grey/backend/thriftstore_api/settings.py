@@ -112,8 +112,12 @@ DEBUG = True
 
 SECRET_KEY = "your-secret-key"
 
-ALLOWED_HOSTS = ["https://greyclo-ifye.onrender.com", "127.0.0.1", "https://greyclo-backend.onrender.com", "localhost"]
-
+ALLOWED_HOSTS = [
+    "greyclo-ifye.onrender.com",
+    "greyclo-backend.onrender.com",
+    "127.0.0.1",
+    "localhost",
+]
 
 
 MEDIA_URL = "/media/"
