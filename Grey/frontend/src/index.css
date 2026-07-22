@@ -1,0 +1,55 @@
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+
+:root {
+  --black:      #0a0a0a;
+  --charcoal:   #161513;
+  --concrete:   #8c887f;
+  --washed:     #c9c4b8;
+  --off-white:  #ece8e0;
+  --rust:       #8a3a24;
+  --rust-dim:   #5e2c1c;
+  --line:       rgba(236, 232, 224, 0.14);
+  --ease:       cubic-bezier(0.22, 0.68, 0, 1);
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  min-width: 320px;
+  min-height: 100vh;
+  background: var(--black);
+  color: var(--off-white);
+  font-family: 'Inter', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+a { color: inherit; text-decoration: none; }
+button { font-family: inherit; cursor: pointer; background: none; border: none; }
+img { display: block; max-width: 100%; }
+
+::selection { background: var(--rust); color: var(--off-white); }
+
+a:focus-visible, button:focus-visible, input:focus-visible {
+  outline: 2px solid var(--rust);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

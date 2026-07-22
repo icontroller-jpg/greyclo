@@ -1,0 +1,178 @@
+.checkout-page {
+  min-height: 100vh;
+  padding: 56px 32px 100px;
+  color: var(--off-white);
+}
+
+.checkout-head { margin-bottom: 36px; max-width: 640px; }
+.checkout-back {
+  display: inline-block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10.5px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--concrete);
+  margin-bottom: 20px;
+  transition: color 0.2s;
+}
+.checkout-back:hover { color: var(--off-white); }
+
+.checkout-title {
+  font-family: 'Anton', sans-serif;
+  text-transform: uppercase;
+  font-size: clamp(30px, 5vw, 52px);
+  color: var(--off-white);
+  margin-bottom: 10px;
+}
+.checkout-sub {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--concrete);
+}
+
+.checkout-empty {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--concrete);
+  padding: 60px 0;
+}
+
+.checkout-grid {
+  display: grid;
+  grid-template-columns: 1.3fr 0.9fr;
+  gap: 48px;
+  max-width: 1100px;
+}
+
+.checkout-field { margin-bottom: 18px; }
+.checkout-field label {
+  display: block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--concrete);
+  margin-bottom: 8px;
+}
+.checkout-field input,
+.checkout-field textarea {
+  width: 100%;
+  background: rgba(236, 232, 224, 0.02);
+  border: 1px solid var(--line);
+  border-bottom: 1px solid var(--concrete);
+  color: var(--off-white);
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  padding: 11px 13px;
+  outline: none;
+  transition: all 0.2s;
+  resize: none;
+}
+.checkout-field input:focus,
+.checkout-field textarea:focus {
+  border-color: transparent;
+  border-bottom-color: var(--rust);
+  background: rgba(138, 58, 36, 0.06);
+}
+
+.checkout-error {
+  color: #d4664f;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11.5px;
+  margin-bottom: 16px;
+  line-height: 1.5;
+}
+
+.checkout-submit {
+  width: 100%;
+  padding: 16px;
+  background: var(--off-white);
+  color: var(--black);
+  border: 1px solid var(--off-white);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.3s var(--ease), color 0.3s var(--ease);
+}
+.checkout-submit:hover { background: transparent; color: var(--off-white); }
+.checkout-submit:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.checkout-summary {
+  border: 1px solid var(--line);
+  padding: 28px;
+  align-self: start;
+  background: var(--charcoal);
+}
+.checkout-summary h3 {
+  font-family: 'Anton', sans-serif;
+  text-transform: uppercase;
+  font-size: 18px;
+  color: var(--off-white);
+  margin-bottom: 20px;
+}
+.checkout-summary-row {
+  display: flex;
+  justify-content: space-between;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: var(--washed);
+  padding: 8px 0;
+  border-bottom: 1px solid var(--line);
+}
+.checkout-summary-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 18px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--washed);
+}
+.checkout-summary-total span:last-child {
+  font-family: 'Anton', sans-serif;
+  font-size: 20px;
+  text-transform: uppercase;
+  color: var(--off-white);
+}
+
+.checkout-confirm {
+  max-width: 480px;
+  margin: 60px auto 0;
+  text-align: center;
+}
+.checkout-eyebrow {
+  display: block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--rust);
+  margin-bottom: 14px;
+}
+.checkout-back-btn {
+  margin-top: 30px;
+  padding: 15px 32px;
+  background: var(--off-white);
+  color: var(--black);
+  border: 1px solid var(--off-white);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.3s var(--ease), color 0.3s var(--ease);
+}
+.checkout-back-btn:hover { background: transparent; color: var(--off-white); }
+
+@media (max-width: 900px) {
+  .checkout-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 600px) {
+  .checkout-page { padding: 40px 20px 70px; }
+}
