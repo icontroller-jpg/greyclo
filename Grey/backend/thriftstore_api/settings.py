@@ -92,13 +92,13 @@ ROOT_URLCONF = "thriftstore_api.urls"
 
 
 CORS_ALLOWED_ORIGINS = [
-    "https://thriftstore-t4od.onrender.com",
+    "https://greyclo-ifye.onrender.com",
     'http://127.0.0.1:5175',
     'http://localhost:5175',
 ]
 
 CSRF_TRUSTED_ORIGINS = [
-    "https://thriftstore-t4od.onrender.com",
+    "https://greyclo-ifye.onrender.com",
     'http://127.0.0.1:8000',
     'http://localhost:8000',
 ]
@@ -110,7 +110,7 @@ DEBUG = True
 
 SECRET_KEY = "your-secret-key"
 
-ALLOWED_HOSTS = ["thriftstore-backend.onrender.com", "127.0.0.1", "localhost"]
+ALLOWED_HOSTS = ["https://greyclo-ifye.onrender.com", "127.0.0.1", "localhost"]
 
 
 
