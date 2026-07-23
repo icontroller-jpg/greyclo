@@ -17,13 +17,91 @@ const CATEGORIES = [
   { value: "bottoms", label: "Bottoms" },
 ];
 
+let imageKitAuth = null;
+
+async function compressImage(file) {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    const canvas = document.createElement("canvas");
+    const reader = new FileReader();
+
+    reader.onload = (e) => {
+      img.onload = () => {
+        const MAX_SIZE = 2400;
+
+        let width = img.width;
+        let height = img.height;
+
+        if (width > MAX_SIZE || height > MAX_SIZE) {
+          if (width > height) {
+            height = Math.round((height * MAX_SIZE) / width);
+            width = MAX_SIZE;
+          } else {
+            width = Math.round((width * MAX_SIZE) / height);
+            height = MAX_SIZE;
+          }
+        }
+
+        canvas.width = width;
+        canvas.height = height;
+
+        const ctx = canvas.getContext("2d");
+        ctx.drawImage(img, 0, 0, width, height);
+
+        canvas.toBlob(
+          (blob) => {
+            if (!blob) {
+              reject(new Error("Image compression failed"));
+              return;
+            }
+
+            resolve(
+              new File(
+                [blob],
+                file.name.replace(/\.[^/.]+$/, ".webp"),
+                { type: "image/webp" }
+              )
+            );
+          },
+          "image/webp",
+          0.85
+        );
+      };
+
+      img.onerror = reject;
+      img.src = e.target.result;
+    };
+
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
+}
+
+async function getImageKitAuth() {
+  if (
+    imageKitAuth &&
+    imageKitAuth.expire * 1000 > Date.now() + 60000
+  ) {
+    return imageKitAuth;
+  }
+
+  const res = await axios.get(`${API_URL}/api/imagekit-auth/`, {
+    timeout: 30000,
+  });
+
+  imageKitAuth = res.data;
+  return imageKitAuth;
+}
+
 async function uploadToImageKit(file) {
-  const authRes = await axios.get(`${API_URL}/api/imagekit-auth/`, { timeout: 60000 });
-  const { token, expire, signature } = authRes.data;
+  const compressedFile = await compressImage(file);
+
+  const { token, expire, signature } = await getImageKitAuth();
 
   const formData = new FormData();
-  formData.append("file", file);
-  formData.append("fileName", file.name);
+
+  formData.append("file", compressedFile);
+  formData.append("fileName", compressedFile.name);
   formData.append("publicKey", IMAGEKIT_PUBLIC_KEY);
   formData.append("token", token);
   formData.append("expire", expire);
@@ -32,8 +110,11 @@ async function uploadToImageKit(file) {
   const res = await axios.post(
     "https://upload.imagekit.io/api/v1/files/upload",
     formData,
-    { timeout: 60000 }
+    {
+      timeout: 120000,
+    }
   );
+
   return res.data.url;
 }
 
@@ -150,46 +231,58 @@ function AdminDashboard() {
     setPreviews((prev) => prev.filter((_, i) => i !== index));
   };
 
-  const uploadProduct = async () => {
-    if (!name || !price || files.length === 0) {
-      return alert("Please fill all required fields and add at least one image");
-    }
-    setLoading(true);
-    try {
-      const urls = [];
-      for (const f of files) {
-        const url = await uploadToImageKit(f);
-        urls.push(url);
+const uploadProduct = async () => {
+  if (!name || !price || files.length === 0) {
+    return alert("Please fill all required fields and add at least one image");
+  }
+
+  setLoading(true);
+
+  try {
+    // Upload all images concurrently
+    const urls = await Promise.all(
+      files.map((file) => uploadToImageKit(file))
+    );
+
+    // Save product data after all images finish uploading
+    await axios.post(
+      `${API_URL}/api/products/`,
+      {
+        title: name,
+        price: parseFloat(price),
+        description,
+        image: urls[0],
+        image_urls: urls,
+        category,
+        condition: "new",
+      },
+      {
+        timeout: 60000,
       }
+    );
 
-      await axios.post(
-        `${API_URL}/api/products/`,
-        {
-          title: name,
-          price: parseFloat(price),
-          description,
-          image: urls[0],
-          image_urls: urls,
-          category,
-          condition: "new",
-        },
-        { timeout: 60000 }
-      );
+    alert("Product uploaded successfully!");
 
-      alert("Product uploaded successfully!");
-      setName("");
-      setPrice("");
-      setDescription("");
-      setCategory("shirts");
-      setFiles([]);
-      setPreviews([]);
-    } catch (err) {
-      console.error("Upload error:", err);
-      alert(`Upload failed: ${err.message}`);
-    } finally {
-      setLoading(false);
-    }
-  };
+    setName("");
+    setPrice("");
+    setDescription("");
+    setCategory("shirts");
+    setFiles([]);
+    setPreviews([]);
+
+  } catch (err) {
+    console.error("Upload error:", err);
+    alert(
+      `Upload failed: ${
+        err.response?.data
+          ? JSON.stringify(err.response.data)
+          : err.message
+      }`
+    );
+  } finally {
+    setLoading(false);
+  }
+};
 
   // NOTE: assumes a standard DRF-style DELETE endpoint at
   // /api/products/<id>/ — adjust the URL if your products/urls.py differs.
