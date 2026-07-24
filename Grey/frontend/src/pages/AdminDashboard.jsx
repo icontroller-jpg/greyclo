@@ -123,11 +123,17 @@ const SINGLE_SLOTS = [
   { slot: "hero", label: "Hero Background" },
   { slot: "drop", label: "Drop Visual" },
   { slot: "campaign", label: "Campaign Background" },
+  { slot: "about", label: "About Page Hero" },
 ];
 const CATEGORY_SLOTS = [
   { slot: "category-shirts", label: "Category Tile — Shirts" },
   { slot: "category-jackets", label: "Category Tile — Jackets" },
   { slot: "category-bottoms", label: "Category Tile — Bottoms" },
+];
+const JOURNAL_SLOTS = [
+  { slot: "campaign", label: "Entry — Shot in the City That Never Asks" },
+  { slot: "process", label: "Entry — Washed Cotton, Heavyweight Fleece" },
+  { slot: "pack", label: "Entry — Worn by the Street, Not the Studio" },
 ];
 const COMMUNITY_SLOTS = Array.from({ length: 8 }, (_, i) => ({
   slot: `community-${i}`,
@@ -490,6 +496,13 @@ const uploadProduct = async () => {
                   <p className="slot-section-title">Category Tiles</p>
                   <div className="slot-grid slot-grid-wide">
                     {CATEGORY_SLOTS.map((s) => (
+                      <SiteImageSlot key={s.slot} slot={s.slot} label={s.label} currentUrl={siteImages[s.slot]} onUploaded={handleSlotUploaded} />
+                    ))}
+                  </div>
+
+                  <p className="slot-section-title">Journal Entries</p>
+                  <div className="slot-grid slot-grid-wide">
+                    {JOURNAL_SLOTS.map((s) => (
                       <SiteImageSlot key={s.slot} slot={s.slot} label={s.label} currentUrl={siteImages[s.slot]} onUploaded={handleSlotUploaded} />
                     ))}
                   </div>
