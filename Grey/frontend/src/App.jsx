@@ -1,6 +1,10 @@
 import { HashRouter, Routes, Route } from "react-router-dom";
 
 import Home from "./pages/Home";
+import Shop from "./pages/Shop";
+import Collections from "./pages/Collections";
+import Journal from "./pages/Journal";
+import About from "./pages/About";
 import ProductPage from "./pages/ProductPage";
 import Cart from "./pages/Cart";
 import Checkout from "./pages/Checkout";
@@ -15,6 +19,10 @@ function App() {
     <HashRouter>
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/shop" element={<Shop />} />
+        <Route path="/collections" element={<Collections />} />
+        <Route path="/journal" element={<Journal />} />
+        <Route path="/about" element={<About />} />
         <Route path="/product/:id" element={<ProductPage />} />
         <Route path="/collection/:category" element={<Collection />} />
         <Route path="/cart" element={<Cart />} />

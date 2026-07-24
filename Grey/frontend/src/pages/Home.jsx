@@ -79,21 +79,17 @@ export default function Home() {
       <header className={`site-header ${scrolled ? "scrolled" : ""}`}>
         <span className="nav-logo">Grey</span>
         <nav className="nav-primary">
-          <a href="#shop">Shop</a>
-          <a href="#collections">Collections</a>
-          <a href="#journal">Journal</a>
-          <a href="#about">About</a>
+          <Link to="/shop">Shop</Link>
+          <Link to="/collections">Collections</Link>
+          <Link to="/journal">Journal</Link>
+          <Link to="/about">About</Link>
         </nav>
         <div className="nav-icons">
-          <a href="#shop" className="icon-btn" aria-label="Search">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-          </a>
+
           <Link to="/login" className="icon-btn" aria-label="Account">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></svg>
           </Link>
-          <a href="#" className="icon-btn" aria-label="Wishlist">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6"><path d="M12 21s-7.5-4.6-10-9.3C.3 8 2 4 6 4c2.2 0 3.8 1.3 6 4 2.2-2.7 3.8-4 6-4 4 0 5.7 4 4 7.7-2.5 4.7-10 9.3-10 9.3z"/></svg>
-          </a>
+
           <Link to="/cart" className="icon-btn" aria-label="Cart">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6"><path d="M6 6h15l-1.5 9h-12z"/><circle cx="9" cy="20" r="1"/><circle cx="18" cy="20" r="1"/><path d="M6 6L4 3H2"/></svg>
           </Link>

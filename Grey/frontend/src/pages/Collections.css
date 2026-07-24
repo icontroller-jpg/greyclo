@@ -1,0 +1,133 @@
+.collections-page {
+  min-height: 100vh;
+  padding: 56px 32px 100px;
+}
+
+.collections-head { margin-bottom: 48px; max-width: 640px; }
+.collections-back {
+  display: inline-block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10.5px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--concrete);
+  margin-bottom: 22px;
+  transition: color 0.2s;
+}
+.collections-back:hover { color: var(--off-white); }
+
+.collections-eyebrow {
+  display: block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--rust);
+  margin-bottom: 10px;
+}
+
+.collections-title {
+  font-family: 'Anton', sans-serif;
+  text-transform: uppercase;
+  font-size: clamp(36px, 6vw, 68px);
+  line-height: 0.95;
+  color: var(--off-white);
+  margin-bottom: 18px;
+}
+
+.collections-sub {
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--concrete);
+}
+
+.collections-featured {
+  position: relative;
+  height: 420px;
+  border: 1px solid var(--line);
+  background-color: #1a1a1a;
+  background-blend-mode: normal;
+  display: flex;
+  align-items: flex-end;
+  margin-bottom: 40px;
+}
+.collections-featured::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(0deg, rgba(10,10,10,0.92) 0%, rgba(10,10,10,0.05) 60%);
+}
+.collections-featured-content {
+  position: relative;
+  z-index: 1;
+  padding: 40px;
+}
+.collections-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--rust);
+  display: block;
+  margin-bottom: 10px;
+}
+.collections-featured-content h2 {
+  font-family: 'Anton', sans-serif;
+  text-transform: uppercase;
+  font-size: clamp(26px, 4vw, 42px);
+  color: var(--off-white);
+  margin-bottom: 18px;
+}
+
+.collections-tiles {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+  margin-bottom: 48px;
+}
+
+.collections-tile {
+  position: relative;
+  height: 300px;
+  background-color: #161616;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding: 24px;
+}
+.collections-tile::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(0deg, rgba(10,10,10,0.75) 0%, rgba(10,10,10,0.05) 60%);
+}
+.collections-tile-label,
+.collections-tile-arrow {
+  position: relative;
+  z-index: 1;
+  font-family: 'Anton', sans-serif;
+  text-transform: uppercase;
+  font-size: 22px;
+  color: var(--off-white);
+}
+
+.collections-cta {
+  text-align: center;
+  padding: 40px 0;
+  border-top: 1px solid var(--line);
+}
+.collections-cta p {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: var(--concrete);
+  margin-bottom: 16px;
+}
+
+@media (max-width: 960px) {
+  .collections-tiles { grid-template-columns: 1fr; }
+}
+@media (max-width: 600px) {
+  .collections-page { padding: 40px 20px 70px; }
+}
