@@ -179,8 +179,8 @@
 
 @media (max-width: 900px) {
   .hero-garment {
-    width: clamp(180px, 55vw, 300px);
-    height: clamp(260px, 78vw, 420px);
+    width: clamp(260px, 85vw, 420px);
+    height: clamp(380px, 120vw, 620px);
   }
 }
 .hero-eyebrow {
