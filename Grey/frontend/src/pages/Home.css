@@ -285,9 +285,6 @@
   overflow: hidden;
 }
 
-.category-grid > * {
-  grid-row: auto;
-}
 .category-tile {
   position: relative;
   display: flex;
@@ -313,6 +310,26 @@
   font-size: clamp(20px, 2.6vw, 30px);
   color: var(--off-white);
 }
+
+/* "Load More" toggle for the mobile category grid (rendered by React,
+   hidden by default and only shown on mobile via the media query below) */
+.load-more-btn {
+  display: none;
+  width: calc(100% - 64px);
+  margin: 20px 32px 0;
+  padding: 15px 0;
+  text-align: center;
+  background: transparent;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--off-white);
+  border: 1px solid var(--concrete);
+  cursor: pointer;
+  transition: border-color 0.3s, color 0.3s;
+}
+.load-more-btn:hover { border-color: var(--off-white); }
 
 /* ── SHOP THE LOOK ── */
 .look-section { padding: 90px 0 100px; }
@@ -412,11 +429,18 @@
   .newsletter { padding: 70px 20px; }
   .footer-grid { grid-template-columns: 1fr; gap: 30px; }
 
+  /* Category grid grows with content now (React caps it at 4 tiles by
+     default, or the full set once "Load More" is tapped) instead of
+     forcing a fixed 6-row box, so no leftover empty cells. */
   .category-grid {
     grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(6, 1fr);
+    grid-template-rows: auto;
+    overflow: visible;
   }
+
+  .load-more-btn { display: block; }
 }
+
 @media (prefers-reduced-motion: reduce) {
   .announce-track, .hero-dot { animation: none; }
 }

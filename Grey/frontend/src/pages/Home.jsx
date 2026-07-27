@@ -19,6 +19,9 @@ function bgStyle(url, overlay) {
 // TODO: set this to your real next drop date/time
 const NEXT_DROP_DATE = new Date("2026-09-01T10:00:00");
 
+// How many category tiles show by default on mobile before "Load More"
+const MOBILE_CATEGORY_LIMIT = 4;
+
 function pad(n) {
   return String(n).padStart(2, "0");
 }
@@ -31,6 +34,7 @@ export default function Home() {
   const [siteImages, setSiteImages] = useState({});
   const [isMobile, setIsMobile] = useState(false);
   const [garmentRotation, setGarmentRotation] = useState(0);
+  const [showAllCategories, setShowAllCategories] = useState(false);
   const dragState = useRef({ dragging: false, startX: 0, startRotation: 0 });
 
   useEffect(() => {
@@ -89,6 +93,14 @@ export default function Home() {
     const data = await getProducts();
     setProducts(data);
   };
+
+  // On mobile, show a capped set of categories until "Load More" is tapped.
+  // Desktop/tablet always show the full list (CSS handles the 6-col grid there).
+  const visibleCategories =
+    isMobile && !showAllCategories
+      ? CATEGORIES.slice(0, MOBILE_CATEGORY_LIMIT)
+      : CATEGORIES;
+  const hasMoreCategories = isMobile && CATEGORIES.length > MOBILE_CATEGORY_LIMIT;
 
   return (
     <>
@@ -243,7 +255,7 @@ export default function Home() {
         </div>
 
         <div className="category-grid">
-          {CATEGORIES.map((c) => (
+          {visibleCategories.map((c) => (
             <Link
               key={c.value}
               to={`/collection/${c.value}`}
@@ -254,6 +266,16 @@ export default function Home() {
             </Link>
           ))}
         </div>
+
+        {hasMoreCategories && (
+          <button
+            type="button"
+            className="load-more-btn"
+            onClick={() => setShowAllCategories((v) => !v)}
+          >
+            {showAllCategories ? "Show Less" : "Load More"}
+          </button>
+        )}
       </section>
 
       {/* ── SHOP THE LOOK ── */}
