@@ -176,6 +176,13 @@
   .garment-spin.auto { animation: none; }
   .garment-back { display: none; }
 }
+
+@media (max-width: 900px) {
+  .hero-garment {
+    width: clamp(180px, 55vw, 300px);
+    height: clamp(260px, 78vw, 420px);
+  }
+}
 .hero-eyebrow {
   position: relative; z-index: 1;
   font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.18em;
