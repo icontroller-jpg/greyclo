@@ -2,9 +2,19 @@ from django.db import models
 
 
 CATEGORY_CHOICES = [
+    ("caps", "Caps"),
+    ("shorts", "Shorts"),
+    ("girl-shorts", "Girl Shorts"),
+    ("socks", "Socks"),
+    ("bucket-hats", "Bucket Hats"),
+    ("skirts", "Skirts"),
+    ("tops", "Tops"),
+    ("vest", "Vest"),
     ("shirts", "Shirts"),
-    ("jackets", "Jackets"),
-    ("bottoms", "Bottoms"),
+    ("durags-wave-caps", "Durags & Wave Caps"),
+    ("windbreaker-track-pants", "Windbreaker Track Pants"),
+    ("tees", "Tees"),
+    ("graphic-tees", "Graphic Tees"),
 ]
 
 
@@ -22,7 +32,7 @@ class Product(models.Model):
     condition = models.CharField(max_length=50)
 
     category = models.CharField(
-        max_length=20,
+        max_length=30,
         choices=CATEGORY_CHOICES,
         default="shirts",
     )
