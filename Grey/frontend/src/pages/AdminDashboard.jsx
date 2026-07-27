@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { getSiteImages, saveSiteImage } from "../services/siteImageService";
+import { CATEGORIES } from "../constants/categories";
 import "./AdminDashboard.css";
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8000";
@@ -11,97 +12,13 @@ const IMAGEKIT_PUBLIC_KEY = import.meta.env.VITE_IMAGEKIT_PUBLIC_KEY;
 // actually used in the upload call below — signing happens server-side via
 // /api/imagekit-auth/ — so it's safe to leave out.
 
-const CATEGORIES = [
-  { value: "shirts", label: "Shirts" },
-  { value: "jackets", label: "Jackets" },
-  { value: "bottoms", label: "Bottoms" },
-];
-
-let imageKitAuth = null;
-
-async function compressImage(file) {
-  return new Promise((resolve, reject) => {
-    const img = new Image();
-    const canvas = document.createElement("canvas");
-    const reader = new FileReader();
-
-    reader.onload = (e) => {
-      img.onload = () => {
-        const MAX_SIZE = 2400;
-
-        let width = img.width;
-        let height = img.height;
-
-        if (width > MAX_SIZE || height > MAX_SIZE) {
-          if (width > height) {
-            height = Math.round((height * MAX_SIZE) / width);
-            width = MAX_SIZE;
-          } else {
-            width = Math.round((width * MAX_SIZE) / height);
-            height = MAX_SIZE;
-          }
-        }
-
-        canvas.width = width;
-        canvas.height = height;
-
-        const ctx = canvas.getContext("2d");
-        ctx.drawImage(img, 0, 0, width, height);
-
-        canvas.toBlob(
-          (blob) => {
-            if (!blob) {
-              reject(new Error("Image compression failed"));
-              return;
-            }
-
-            resolve(
-              new File(
-                [blob],
-                file.name.replace(/\.[^/.]+$/, ".webp"),
-                { type: "image/webp" }
-              )
-            );
-          },
-          "image/webp",
-          0.85
-        );
-      };
-
-      img.onerror = reject;
-      img.src = e.target.result;
-    };
-
-    reader.onerror = reject;
-    reader.readAsDataURL(file);
-  });
-}
-
-async function getImageKitAuth() {
-  if (
-    imageKitAuth &&
-    imageKitAuth.expire * 1000 > Date.now() + 60000
-  ) {
-    return imageKitAuth;
-  }
-
-  const res = await axios.get(`${API_URL}/api/imagekit-auth/`, {
-    timeout: 30000,
-  });
-
-  imageKitAuth = res.data;
-  return imageKitAuth;
-}
-
 async function uploadToImageKit(file) {
-  const compressedFile = await compressImage(file);
-
-  const { token, expire, signature } = await getImageKitAuth();
+  const authRes = await axios.get(`${API_URL}/api/imagekit-auth/`, { timeout: 60000 });
+  const { token, expire, signature } = authRes.data;
 
   const formData = new FormData();
-
-  formData.append("file", compressedFile);
-  formData.append("fileName", compressedFile.name);
+  formData.append("file", file);
+  formData.append("fileName", file.name);
   formData.append("publicKey", IMAGEKIT_PUBLIC_KEY);
   formData.append("token", token);
   formData.append("expire", expire);
@@ -110,11 +27,8 @@ async function uploadToImageKit(file) {
   const res = await axios.post(
     "https://upload.imagekit.io/api/v1/files/upload",
     formData,
-    {
-      timeout: 120000,
-    }
+    { timeout: 60000 }
   );
-
   return res.data.url;
 }
 
@@ -123,18 +37,11 @@ const SINGLE_SLOTS = [
   { slot: "hero", label: "Hero Background" },
   { slot: "drop", label: "Drop Visual" },
   { slot: "campaign", label: "Campaign Background" },
-  { slot: "about", label: "About Page Hero" },
 ];
-const CATEGORY_SLOTS = [
-  { slot: "category-shirts", label: "Category Tile — Shirts" },
-  { slot: "category-jackets", label: "Category Tile — Jackets" },
-  { slot: "category-bottoms", label: "Category Tile — Bottoms" },
-];
-const JOURNAL_SLOTS = [
-  { slot: "campaign", label: "Entry — Shot in the City That Never Asks" },
-  { slot: "process", label: "Entry — Washed Cotton, Heavyweight Fleece" },
-  { slot: "pack", label: "Entry — Worn by the Street, Not the Studio" },
-];
+const CATEGORY_SLOTS = CATEGORIES.map((c) => ({
+  slot: `category-${c.value}`,
+  label: `Category Tile — ${c.label}`,
+}));
 const COMMUNITY_SLOTS = Array.from({ length: 8 }, (_, i) => ({
   slot: `community-${i}`,
   label: `Community ${i + 1}`,
@@ -237,58 +144,46 @@ function AdminDashboard() {
     setPreviews((prev) => prev.filter((_, i) => i !== index));
   };
 
-const uploadProduct = async () => {
-  if (!name || !price || files.length === 0) {
-    return alert("Please fill all required fields and add at least one image");
-  }
-
-  setLoading(true);
-
-  try {
-    // Upload all images concurrently
-    const urls = await Promise.all(
-      files.map((file) => uploadToImageKit(file))
-    );
-
-    // Save product data after all images finish uploading
-    await axios.post(
-      `${API_URL}/api/products/`,
-      {
-        title: name,
-        price: parseFloat(price),
-        description,
-        image: urls[0],
-        image_urls: urls,
-        category,
-        condition: "new",
-      },
-      {
-        timeout: 60000,
+  const uploadProduct = async () => {
+    if (!name || !price || files.length === 0) {
+      return alert("Please fill all required fields and add at least one image");
+    }
+    setLoading(true);
+    try {
+      const urls = [];
+      for (const f of files) {
+        const url = await uploadToImageKit(f);
+        urls.push(url);
       }
-    );
 
-    alert("Product uploaded successfully!");
+      await axios.post(
+        `${API_URL}/api/products/`,
+        {
+          title: name,
+          price: parseFloat(price),
+          description,
+          image: urls[0],
+          image_urls: urls,
+          category,
+          condition: "new",
+        },
+        { timeout: 60000 }
+      );
 
-    setName("");
-    setPrice("");
-    setDescription("");
-    setCategory("shirts");
-    setFiles([]);
-    setPreviews([]);
-
-  } catch (err) {
-    console.error("Upload error:", err);
-    alert(
-      `Upload failed: ${
-        err.response?.data
-          ? JSON.stringify(err.response.data)
-          : err.message
-      }`
-    );
-  } finally {
-    setLoading(false);
-  }
-};
+      alert("Product uploaded successfully!");
+      setName("");
+      setPrice("");
+      setDescription("");
+      setCategory("shirts");
+      setFiles([]);
+      setPreviews([]);
+    } catch (err) {
+      console.error("Upload error:", err);
+      alert(`Upload failed: ${err.message}`);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   // NOTE: assumes a standard DRF-style DELETE endpoint at
   // /api/products/<id>/ — adjust the URL if your products/urls.py differs.
@@ -496,13 +391,6 @@ const uploadProduct = async () => {
                   <p className="slot-section-title">Category Tiles</p>
                   <div className="slot-grid slot-grid-wide">
                     {CATEGORY_SLOTS.map((s) => (
-                      <SiteImageSlot key={s.slot} slot={s.slot} label={s.label} currentUrl={siteImages[s.slot]} onUploaded={handleSlotUploaded} />
-                    ))}
-                  </div>
-
-                  <p className="slot-section-title">Journal Entries</p>
-                  <div className="slot-grid slot-grid-wide">
-                    {JOURNAL_SLOTS.map((s) => (
                       <SiteImageSlot key={s.slot} slot={s.slot} label={s.label} currentUrl={siteImages[s.slot]} onUploaded={handleSlotUploaded} />
                     ))}
                   </div>

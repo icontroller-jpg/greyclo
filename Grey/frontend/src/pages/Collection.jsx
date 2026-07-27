@@ -2,13 +2,8 @@ import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { getProducts } from "../services/productService";
 import ProductCard from "../components/ProductCard";
+import { CATEGORIES } from "../constants/categories";
 import "./Collection.css";
-
-const CATEGORY_LABELS = {
-  shirts: "Shirts",
-  jackets: "Jackets",
-  bottoms: "Bottoms",
-};
 
 export default function Collection() {
   const { category } = useParams();
@@ -28,7 +23,7 @@ export default function Collection() {
     };
   }, [category]);
 
-  const label = CATEGORY_LABELS[category] || category;
+  const label = CATEGORIES.find((c) => c.value === category)?.label || category;
 
   return (
     <div className="collection-page">

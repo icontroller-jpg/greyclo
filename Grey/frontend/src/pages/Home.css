@@ -276,7 +276,7 @@
 
 .category-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
   gap: 1px;
   background: var(--line);
   border: 1px solid var(--line);
@@ -380,7 +380,6 @@
 
 /* ══════════════════ TABLET ≤1080px ══════════════════ */
 @media (max-width: 1080px) {
-  .category-grid { grid-template-columns: repeat(2, 1fr); }
   .drop-grid { grid-template-columns: 1fr; }
   .drop-visual { min-height: 320px; border-right: none; border-bottom: 1px solid var(--line); }
   .community-grid { grid-template-columns: repeat(2, 1fr); }

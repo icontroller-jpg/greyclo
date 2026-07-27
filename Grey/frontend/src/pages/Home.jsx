@@ -2,6 +2,7 @@ import { useEffect, useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import { getProducts } from "../services/productService";
 import { getSiteImages } from "../services/siteImageService";
+import { CATEGORIES } from "../constants/categories";
 import "./Home.css";
 
 // Builds a background-image style, falling back to `undefined` (letting the
@@ -242,27 +243,16 @@ export default function Home() {
         </div>
 
         <div className="category-grid">
-          <Link
-            to="/collection/shirts"
-            className="category-tile"
-            style={bgStyle(siteImages["category-shirts"])}
-          >
-            <span className="category-label">Shirts</span>
-          </Link>
-          <Link
-            to="/collection/jackets"
-            className="category-tile"
-            style={bgStyle(siteImages["category-jackets"])}
-          >
-            <span className="category-label">Jackets</span>
-          </Link>
-          <Link
-            to="/collection/bottoms"
-            className="category-tile"
-            style={bgStyle(siteImages["category-bottoms"])}
-          >
-            <span className="category-label">Bottoms</span>
-          </Link>
+          {CATEGORIES.map((c) => (
+            <Link
+              key={c.value}
+              to={`/collection/${c.value}`}
+              className="category-tile"
+              style={bgStyle(siteImages[`category-${c.value}`])}
+            >
+              <span className="category-label">{c.label}</span>
+            </Link>
+          ))}
         </div>
       </section>
 
@@ -299,7 +289,21 @@ export default function Home() {
         </div>
       </section>
 
-
+      {/* ── COMMUNITY ── */}
+      <section className="community-section">
+        <div className="section-head">
+          <div>
+            <span className="section-eyebrow">The Pack</span>
+            <h2 className="section-title">Worn by the Street,<br />Not the Studio.</h2>
+          </div>
+          <span className="community-cta">#WearGrey</span>
+        </div>
+        <div className="community-grid">
+          {[...Array(8)].map((_, i) => (
+            <div className="community-cell" key={i} style={bgStyle(siteImages[`community-${i}`])} />
+          ))}
+        </div>
+      </section>
 
       {/* ── COUNTDOWN ── */}
       <section className="countdown-section" id="about">
