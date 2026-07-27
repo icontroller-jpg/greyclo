@@ -289,21 +289,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── COMMUNITY ── */}
-      <section className="community-section">
-        <div className="section-head">
-          <div>
-            <span className="section-eyebrow">The Pack</span>
-            <h2 className="section-title">Worn by the Street,<br />Not the Studio.</h2>
-          </div>
-          <span className="community-cta">#WearGrey</span>
-        </div>
-        <div className="community-grid">
-          {[...Array(8)].map((_, i) => (
-            <div className="community-cell" key={i} style={bgStyle(siteImages[`community-${i}`])} />
-          ))}
-        </div>
-      </section>
+
 
       {/* ── COUNTDOWN ── */}
       <section className="countdown-section" id="about">
