@@ -276,11 +276,17 @@
 
 .category-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: repeat(6, 1fr);
   gap: 1px;
   background: var(--line);
   border: 1px solid var(--line);
   margin: 0 32px;
+  overflow: hidden;
+}
+
+.category-grid > * {
+  grid-row: auto;
 }
 .category-tile {
   position: relative;
@@ -405,8 +411,12 @@
   .countdown-section { padding: 70px 20px; }
   .newsletter { padding: 70px 20px; }
   .footer-grid { grid-template-columns: 1fr; gap: 30px; }
-}
 
+  .category-grid {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(6, 1fr);
+  }
+}
 @media (prefers-reduced-motion: reduce) {
   .announce-track, .hero-dot { animation: none; }
 }
