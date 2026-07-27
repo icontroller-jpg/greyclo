@@ -102,26 +102,32 @@
   opacity: 0.85;
 }
 
-/* ── 3D SPINNING GARMENT ── */
+/* ── 3D GARMENT SHOWCASE ── */
 .hero-garment {
   position: absolute;
-  right: 5%;
+  left: 50%;
   top: 50%;
-  transform: translateY(-50%);
+  transform: translate(-50%, -50%);
   width: clamp(220px, 26vw, 380px);
   height: clamp(320px, 40vw, 560px);
   perspective: 1400px;
   z-index: 1;
   animation: garment-bob 4.5s ease-in-out infinite;
-  pointer-events: none;
 }
 .garment-spin {
   position: relative;
   width: 100%;
   height: 100%;
   transform-style: preserve-3d;
+}
+.garment-spin.auto {
   animation: garment-spin 13s linear infinite;
 }
+.garment-spin.manual {
+  touch-action: pan-y;
+  cursor: grab;
+}
+.garment-spin.manual:active { cursor: grabbing; }
 .garment-face {
   position: absolute;
   inset: 0;
@@ -143,21 +149,31 @@
   filter: blur(4px);
   z-index: -1;
 }
+.garment-hint {
+  position: absolute;
+  bottom: -34px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--concrete);
+  white-space: nowrap;
+}
 
 @keyframes garment-spin {
   from { transform: rotateY(0deg); }
   to   { transform: rotateY(360deg); }
 }
 @keyframes garment-bob {
-  0%, 100% { transform: translateY(-50%); }
-  50%      { transform: translateY(calc(-50% - 14px)); }
+  0%, 100% { transform: translate(-50%, -50%); }
+  50%      { transform: translate(-50%, calc(-50% - 14px)); }
 }
 
-@media (max-width: 900px) {
-  .hero-garment { display: none; }
-}
 @media (prefers-reduced-motion: reduce) {
-  .hero-garment, .garment-spin { animation: none; }
+  .hero-garment { animation: none; }
+  .garment-spin.auto { animation: none; }
   .garment-back { display: none; }
 }
 .hero-eyebrow {

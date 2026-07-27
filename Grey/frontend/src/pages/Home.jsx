@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import { getProducts } from "../services/productService";
 import { getSiteImages } from "../services/siteImageService";
@@ -28,6 +28,35 @@ export default function Home() {
   const [scrolled, setScrolled] = useState(false);
   const [timeLeft, setTimeLeft] = useState({ d: 0, h: 0, m: 0, s: 0 });
   const [siteImages, setSiteImages] = useState({});
+  const [isMobile, setIsMobile] = useState(false);
+  const [garmentRotation, setGarmentRotation] = useState(0);
+  const dragState = useRef({ dragging: false, startX: 0, startRotation: 0 });
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth <= 900);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
+
+  const handleGarmentTouchStart = (e) => {
+    if (!isMobile) return;
+    dragState.current = {
+      dragging: true,
+      startX: e.touches[0].clientX,
+      startRotation: garmentRotation,
+    };
+  };
+
+  const handleGarmentTouchMove = (e) => {
+    if (!isMobile || !dragState.current.dragging) return;
+    const deltaX = e.touches[0].clientX - dragState.current.startX;
+    setGarmentRotation(dragState.current.startRotation + deltaX * 0.6);
+  };
+
+  const handleGarmentTouchEnd = () => {
+    dragState.current.dragging = false;
+  };
 
   useEffect(() => {
     loadProducts();
@@ -120,13 +149,23 @@ export default function Home() {
       >
         <div className="hero-grain" />
 
-        {/* 3D spinning garment showcase — front/back photos on a rotating card */}
-        <div className="hero-garment" aria-hidden="true">
-          <div className="garment-spin">
+        {/* 3D garment showcase — self-rotates on desktop, drag-to-rotate on mobile */}
+        <div
+          className="hero-garment"
+          aria-hidden="true"
+          onTouchStart={handleGarmentTouchStart}
+          onTouchMove={handleGarmentTouchMove}
+          onTouchEnd={handleGarmentTouchEnd}
+        >
+          <div
+            className={`garment-spin ${isMobile ? "manual" : "auto"}`}
+            style={isMobile ? { transform: `rotateY(${garmentRotation}deg)` } : undefined}
+          >
             <img src="/garment-front.png" alt="" className="garment-face garment-front" />
             <img src="/garment-back.png" alt="" className="garment-face garment-back" />
           </div>
           <div className="garment-shadow" />
+          {isMobile && <p className="garment-hint">Drag to rotate</p>}
         </div>
 
         <p className="hero-eyebrow"><span className="hero-dot" /> Drop 001 — Available Now</p>
