@@ -101,6 +101,65 @@
   clip-path: polygon(18% 0, 100% 0, 100% 100%, 0% 100%);
   opacity: 0.85;
 }
+
+/* ── 3D SPINNING GARMENT ── */
+.hero-garment {
+  position: absolute;
+  right: 5%;
+  top: 50%;
+  transform: translateY(-50%);
+  width: clamp(220px, 26vw, 380px);
+  height: clamp(320px, 40vw, 560px);
+  perspective: 1400px;
+  z-index: 1;
+  animation: garment-bob 4.5s ease-in-out infinite;
+  pointer-events: none;
+}
+.garment-spin {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  animation: garment-spin 13s linear infinite;
+}
+.garment-face {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  backface-visibility: hidden;
+  filter: drop-shadow(0 30px 40px rgba(0, 0, 0, 0.55));
+}
+.garment-back { transform: rotateY(180deg); }
+.garment-shadow {
+  position: absolute;
+  bottom: -4%;
+  left: 50%;
+  width: 65%;
+  height: 22px;
+  transform: translateX(-50%);
+  background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.55) 0%, transparent 70%);
+  filter: blur(4px);
+  z-index: -1;
+}
+
+@keyframes garment-spin {
+  from { transform: rotateY(0deg); }
+  to   { transform: rotateY(360deg); }
+}
+@keyframes garment-bob {
+  0%, 100% { transform: translateY(-50%); }
+  50%      { transform: translateY(calc(-50% - 14px)); }
+}
+
+@media (max-width: 900px) {
+  .hero-garment { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-garment, .garment-spin { animation: none; }
+  .garment-back { display: none; }
+}
 .hero-eyebrow {
   position: relative; z-index: 1;
   font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.18em;

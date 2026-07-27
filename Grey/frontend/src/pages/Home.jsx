@@ -119,15 +119,18 @@ export default function Home() {
         )}
       >
         <div className="hero-grain" />
-        {!siteImages.hero && <div className="hero-figure" />}
+
+        {/* 3D spinning garment showcase — front/back photos on a rotating card */}
+        <div className="hero-garment" aria-hidden="true">
+          <div className="garment-spin">
+            <img src="/garment-front.png" alt="" className="garment-face garment-front" />
+            <img src="/garment-back.png" alt="" className="garment-face garment-back" />
+          </div>
+          <div className="garment-shadow" />
+        </div>
+
         <p className="hero-eyebrow"><span className="hero-dot" /> Drop 001 — Available Now</p>
-        <h1 className="hero-title">
-          Not For<br /><span className="hero-title-stroke">Everyone.</span>
-        </h1>
-        <p className="hero-sub">
-          Built for the ones who don't wait for permission. Made in limited numbers.
-          Once they're gone, they don't come back.
-        </p>
+
         <div className="hero-cta-row">
           <a href="#shop" className="btn-primary">Shop the Drop</a>
           <a href="#about" className="btn-ghost">Read the Manifesto</a>
@@ -136,13 +139,7 @@ export default function Home() {
       </section>
 
       {/* ── BRAND STATEMENT ── */}
-      <section className="statement">
-        <p>
-          BUILT FOR THOSE WHO MOVE DIFFERENT.{" "}
-          <span className="statement-fade">MADE IN LIMITED NUMBERS,</span>{" "}
-          WORN WITHOUT PERMISSION.
-        </p>
-      </section>
+
 
       {/* ── DROP EVENT: most recently posted product ── */}
       <section className="drop-event" id="collections">
