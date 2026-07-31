@@ -148,26 +148,9 @@ export default function Home() {
           "linear-gradient(180deg, rgba(10,10,10,0.12) 0%, rgba(10,10,10,0.05) 40%, rgba(10,10,10,0.92) 100%)"
         )}
       >
-        <div className="hero-grain" />
 
-        {/* 3D garment showcase — self-rotates on desktop, drag-to-rotate on mobile */}
-        <div
-          className="hero-garment"
-          aria-hidden="true"
-          onTouchStart={handleGarmentTouchStart}
-          onTouchMove={handleGarmentTouchMove}
-          onTouchEnd={handleGarmentTouchEnd}
-        >
-          <div
-            className={`garment-spin ${isMobile ? "manual" : "auto"}`}
-            style={isMobile ? { transform: `rotateY(${garmentRotation}deg)` } : undefined}
-          >
-            <img src="/garment-front.png" alt="" className="garment-face garment-front" />
-            <img src="/garment-back.png" alt="" className="garment-face garment-back" />
-          </div>
-          <div className="garment-shadow" />
-          {isMobile && <p className="garment-hint">Drag to rotate</p>}
-        </div>
+
+
 
 
 
