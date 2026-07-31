@@ -160,7 +160,7 @@ export default function Home() {
 
       {/* ── BRAND STATEMENT ── */}
 
-  {/* ── DROP EVENT: most recently posted product ── */}
+{/* ── DROP EVENT: most recently posted product ── */}
 <section className="drop-event" id="collections">
   <div className="section-head">
     <div>
@@ -171,7 +171,7 @@ export default function Home() {
   </div>
   {products.length > 0 ? (
     <div className="drop-grid">
-      <div className="drop-visual" style={bgStyle(products[0].image)}>
+      <div className="drop-visual" style={bgStyle(siteImages.drop)}>
         <span className="drop-tag">{products[0].category}</span>
       </div>
       <div className="drop-info">
