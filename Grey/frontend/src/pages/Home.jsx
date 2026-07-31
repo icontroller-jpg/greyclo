@@ -155,7 +155,7 @@ export default function Home() {
     <span className="hero-line">Grey 2026</span>
   </div>
 
-  <Link to="/#shop" className="btn-primary hero-shop-btn">Shop Now</Link>
+  <Link to="/shop" className="btn-primary hero-shop-btn">Shop Now</Link>
 
   <div className="scroll-cue">Scroll</div>
 </section>
