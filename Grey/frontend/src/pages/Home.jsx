@@ -154,10 +154,7 @@ export default function Home() {
 
 
 
-        <div className="hero-cta-row">
-          <a href="#shop" className="btn-primary">Shop the Drop</a>
 
-        </div>
         <div className="scroll-cue">Scroll</div>
       </section>
 
