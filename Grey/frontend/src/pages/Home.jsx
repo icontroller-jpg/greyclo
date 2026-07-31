@@ -163,7 +163,7 @@ export default function Home() {
 {/* ── DROP EVENT: current collection, image-only ── */}
 <section className="drop-event" id="collections">
   <div className="section-head center-head">
-    <span className="section-eyebrow center">Collection Nine</span>
+    <span className="section-eyebrow center">Collection One</span>
   </div>
 
 <div className="drop-grid-imgs">
