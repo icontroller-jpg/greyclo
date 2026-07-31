@@ -142,22 +142,20 @@ export default function Home() {
       </div>
 
       {/* ── HERO ── */}
-      <section
-        className="hero"
-        style={bgStyle(
-          siteImages.hero,
-          "linear-gradient(180deg, rgba(10,10,10,0.12) 0%, rgba(10,10,10,0.05) 40%, rgba(10,10,10,0.92) 100%)"
-        )}
-      >
+<section
+  className="hero"
+  style={bgStyle(
+    siteImages.hero,
+    "linear-gradient(180deg, rgba(10,10,10,0.12) 0%, rgba(10,10,10,0.05) 40%, rgba(10,10,10,0.92) 100%)"
+  )}
+>
+  <div className="hero-text">
+    <span className="hero-line">Jay Z 1996</span>
+    <span className="hero-line">Alkaline 2016</span>
+  </div>
 
-
-
-
-
-
-
-        <div className="scroll-cue">Scroll</div>
-      </section>
+  <div className="scroll-cue">Scroll</div>
+</section>
 
       {/* ── BRAND STATEMENT ── */}
 
