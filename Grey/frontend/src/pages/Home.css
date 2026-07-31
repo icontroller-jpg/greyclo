@@ -308,10 +308,11 @@
 .drop-visual-img {
   display: block;
   width: 100%;
-  aspect-ratio: 3 / 4;
+  max-width: 480px;
+  margin: 0 auto;
+  aspect-ratio: 2 / 3;
   background-size: cover;
   background-position: center;
-  border-radius: 4px;
   overflow: hidden;
 }
 
