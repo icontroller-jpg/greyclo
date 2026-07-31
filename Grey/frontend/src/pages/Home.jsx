@@ -164,11 +164,9 @@ export default function Home() {
 <section className="drop-event" id="collections">
   <div className="section-head">
     <div>
-      <span className="section-eyebrow">The Current Drop</span>
-      <h2 className="section-title">Every Piece Is<br />a Small Riot.</h2>
-    </div>
-    <a href="#shop" className="btn-ghost">View Full Collection →</a>
-  </div>
+
+
+
   {products.length > 0 ? (
     <div className="drop-grid">
       <div className="drop-visual" style={bgStyle(siteImages.drop)}>
@@ -176,12 +174,12 @@ export default function Home() {
       </div>
       <div className="drop-info">
         <span className="drop-num">Latest Drop</span>
-        <h3>{products[0].title}</h3>
+
         <p className="drop-desc">{products[0].description}</p>
         <div className="drop-meta">
           <div><span className="drop-label">Price</span><span className="drop-value">${products[0].price}</span></div>
           <div>
-            <span className="drop-label">Status</span>
+
             <span className="drop-value">
               {products[0].status === "sold" ? "Sold" : "Available Now"}
             </span>
