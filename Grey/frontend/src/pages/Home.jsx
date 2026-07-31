@@ -188,21 +188,6 @@ export default function Home() {
 
 
 
-      {/* ── COUNTDOWN ── */}
-      <section className="countdown-section" id="about">
-        <span className="section-eyebrow center">Drop 002</span>
-        <h3 className="countdown-title">Next Release Counts Down.</h3>
-        <div className="timer">
-          <div className="timer-cell"><span className="timer-num">{pad(timeLeft.d)}</span><span className="timer-lbl">Days</span></div>
-          <div className="timer-cell"><span className="timer-num">{pad(timeLeft.h)}</span><span className="timer-lbl">Hrs</span></div>
-          <div className="timer-cell"><span className="timer-num">{pad(timeLeft.m)}</span><span className="timer-lbl">Min</span></div>
-          <div className="timer-cell"><span className="timer-num">{pad(timeLeft.s)}</span><span className="timer-lbl">Sec</span></div>
-        </div>
-        <form className="notify-form" onSubmit={(e) => e.preventDefault()}>
-          <input type="email" placeholder="Enter your email" aria-label="Email for drop notification" />
-          <button type="submit">Notify Me</button>
-        </form>
-      </section>
 
 
 
