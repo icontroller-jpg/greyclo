@@ -161,58 +161,24 @@ export default function Home() {
 
       {/* ── BRAND STATEMENT ── */}
 
-{/* ── DROP EVENT: most recently posted product ── */}
+{/* ── DROP EVENT: current collection, image-only ── */}
 <section className="drop-event" id="collections">
-  <div className="section-head">
-    <div>
-      {/* Optional heading goes here */}
-    </div>
+  <div className="section-head center-head">
+    <span className="section-eyebrow center">Collection Nine</span>
   </div>
 
-  {products.length > 0 ? (
-    <div className="drop-grid">
-      <div className="drop-visual" style={bgStyle(siteImages.drop)}>
-        <span className="drop-tag">{products[0].category}</span>
-      </div>
-
-      <div className="drop-info">
-        <span className="drop-num">Latest Drop</span>
-
-        <p className="drop-desc">{products[0].description}</p>
-
-        <div className="drop-meta">
-          <div>
-            <span className="drop-label">Price</span>
-            <span className="drop-value">${products[0].price}</span>
-          </div>
-
-          <div>
-            <span className="drop-value">
-              {products[0].status === "sold" ? "Sold" : "Available Now"}
-            </span>
-          </div>
-        </div>
-
-        <Link to={`/product/${products[0].id}`} className="btn-primary">
-          Shop This Piece
-        </Link>
-      </div>
-    </div>
-  ) : (
-    <div className="drop-grid">
-      <div className="drop-visual" style={bgStyle(siteImages.drop)}>
-        <span className="drop-tag">Coming Soon</span>
-      </div>
-
-      <div className="drop-info">
-        <span className="drop-num">001</span>
-
-        <a href="#shop" className="btn-primary">
-          Shop the Range
-        </a>
-      </div>
-    </div>
-  )}
+  <div className="drop-grid-imgs">
+    <Link
+      to={products[0] ? `/product/${products[0].id}` : "#shop"}
+      className="drop-visual-img"
+      style={bgStyle(products[0] ? products[0].image : siteImages.drop)}
+    />
+    <Link
+      to={products[1] ? `/product/${products[1].id}` : "#shop"}
+      className="drop-visual-img"
+      style={bgStyle(products[1] ? products[1].image : siteImages.drop)}
+    />
+  </div>
 </section>
 
 
