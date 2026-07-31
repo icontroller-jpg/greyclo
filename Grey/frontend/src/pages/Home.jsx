@@ -152,6 +152,7 @@ export default function Home() {
   <div className="hero-text">
     <span className="hero-line">Jay Z 1996</span>
     <span className="hero-line">Alkaline 2016</span>
+    <span className="hero-line">Grey 2026</span>
   </div>
 
   <div className="scroll-cue">Scroll</div>

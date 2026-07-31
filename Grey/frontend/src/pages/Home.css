@@ -1,4 +1,6 @@
 /* ── ANNOUNCEMENT BAR ── */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&display=swap');
+
 .announce {
   background: var(--rust-dim);
   overflow: hidden;
@@ -103,10 +105,12 @@
 }
 
 .hero-line {
+  font-family: 'Playfair Display', serif;
   color: #fff;
   font-size: clamp(1.5rem, 4vw, 3rem);
-  font-weight: 600;
-  letter-spacing: 0.02em;
+  font-weight: 300;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
 }
 .hero-grain {
   position: absolute; inset: 0;
