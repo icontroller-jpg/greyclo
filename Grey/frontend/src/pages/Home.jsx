@@ -166,18 +166,18 @@ export default function Home() {
     <span className="section-eyebrow center">Collection Nine</span>
   </div>
 
-  <div className="drop-grid-imgs">
-    <Link
-      to={products[0] ? `/product/${products[0].id}` : "#shop"}
-      className="drop-visual-img"
-      style={bgStyle(products[0] ? products[0].image : siteImages.drop)}
-    />
-    <Link
-      to={products[1] ? `/product/${products[1].id}` : "#shop"}
-      className="drop-visual-img"
-      style={bgStyle(products[1] ? products[1].image : siteImages.drop)}
-    />
-  </div>
+<div className="drop-grid-imgs">
+  <Link
+    to={products[0] ? `/product/${products[0].id}` : "#shop"}
+    className="drop-visual-img"
+    style={bgStyle(products[0] ? products[0].image : siteImages.drop)}
+  />
+  <Link
+    to={products[1] ? `/product/${products[1].id}` : "#shop"}
+    className="drop-visual-img drop-visual-img--secondary"
+    style={bgStyle(products[1] ? products[1].image : siteImages.campaign)}
+  />
+</div>
 </section>
 
 
