@@ -260,6 +260,10 @@
   display: block; font-family: 'JetBrains Mono', monospace; font-size: 11px;
   letter-spacing: 0.14em; text-transform: uppercase; color: var(--off-white); margin-bottom: 12px;
 }
+.hero-shop-btn {
+  margin-top: 24px;
+  z-index: 1;
+}
 .section-eyebrow.light { color: var(--washed); }
 .section-eyebrow.center { text-align: center; margin: 0 auto 14px; }
 .section-title {
