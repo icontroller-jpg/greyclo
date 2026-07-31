@@ -216,39 +216,6 @@ export default function Home() {
 </section>
 
 
-      {/* ── SHOP BY CATEGORY ── */}
-      <section className="shop-section" id="shop">
-        <div className="section-head">
-          <div>
-
-
-          </div>
-          <div className="shop-count">{products.length} pieces total</div>
-        </div>
-
-        <div className="category-grid">
-          {visibleCategories.map((c) => (
-            <Link
-              key={c.value}
-              to={`/collection/${c.value}`}
-              className="category-tile"
-              style={bgStyle(siteImages[`category-${c.value}`])}
-            >
-              <span className="category-label">{c.label}</span>
-            </Link>
-          ))}
-        </div>
-
-        {hasMoreCategories && (
-          <button
-            type="button"
-            className="load-more-btn"
-            onClick={() => setShowAllCategories((v) => !v)}
-          >
-            {showAllCategories ? "Show Less" : "Load More"}
-          </button>
-        )}
-      </section>
 
 
 
