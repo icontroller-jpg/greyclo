@@ -164,27 +164,34 @@ export default function Home() {
 <section className="drop-event" id="collections">
   <div className="section-head">
     <div>
-
-
+      {/* Optional heading goes here */}
+    </div>
+  </div>
 
   {products.length > 0 ? (
     <div className="drop-grid">
       <div className="drop-visual" style={bgStyle(siteImages.drop)}>
         <span className="drop-tag">{products[0].category}</span>
       </div>
+
       <div className="drop-info">
         <span className="drop-num">Latest Drop</span>
 
         <p className="drop-desc">{products[0].description}</p>
-        <div className="drop-meta">
-          <div><span className="drop-label">Price</span><span className="drop-value">${products[0].price}</span></div>
-          <div>
 
+        <div className="drop-meta">
+          <div>
+            <span className="drop-label">Price</span>
+            <span className="drop-value">${products[0].price}</span>
+          </div>
+
+          <div>
             <span className="drop-value">
               {products[0].status === "sold" ? "Sold" : "Available Now"}
             </span>
           </div>
         </div>
+
         <Link to={`/product/${products[0].id}`} className="btn-primary">
           Shop This Piece
         </Link>
@@ -195,15 +202,17 @@ export default function Home() {
       <div className="drop-visual" style={bgStyle(siteImages.drop)}>
         <span className="drop-tag">Coming Soon</span>
       </div>
+
       <div className="drop-info">
         <span className="drop-num">001</span>
 
-        <a href="#shop" className="btn-primary">Shop the Range</a>
+        <a href="#shop" className="btn-primary">
+          Shop the Range
+        </a>
       </div>
     </div>
   )}
 </section>
-
 
 
       {/* ── SHOP BY CATEGORY ── */}
