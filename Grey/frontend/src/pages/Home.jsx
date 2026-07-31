@@ -160,7 +160,51 @@ export default function Home() {
 
       {/* ── BRAND STATEMENT ── */}
 
+  {/* ── DROP EVENT: most recently posted product ── */}
+<section className="drop-event" id="collections">
+  <div className="section-head">
+    <div>
+      <span className="section-eyebrow">The Current Drop</span>
+      <h2 className="section-title">Every Piece Is<br />a Small Riot.</h2>
+    </div>
+    <a href="#shop" className="btn-ghost">View Full Collection →</a>
+  </div>
+  {products.length > 0 ? (
+    <div className="drop-grid">
+      <div className="drop-visual" style={bgStyle(products[0].image)}>
+        <span className="drop-tag">{products[0].category}</span>
+      </div>
+      <div className="drop-info">
+        <span className="drop-num">Latest Drop</span>
+        <h3>{products[0].title}</h3>
+        <p className="drop-desc">{products[0].description}</p>
+        <div className="drop-meta">
+          <div><span className="drop-label">Price</span><span className="drop-value">${products[0].price}</span></div>
+          <div>
+            <span className="drop-label">Status</span>
+            <span className="drop-value">
+              {products[0].status === "sold" ? "Sold" : "Available Now"}
+            </span>
+          </div>
+        </div>
+        <Link to={`/product/${products[0].id}`} className="btn-primary">
+          Shop This Piece
+        </Link>
+      </div>
+    </div>
+  ) : (
+    <div className="drop-grid">
+      <div className="drop-visual" style={bgStyle(siteImages.drop)}>
+        <span className="drop-tag">Coming Soon</span>
+      </div>
+      <div className="drop-info">
+        <span className="drop-num">001</span>
 
+        <a href="#shop" className="btn-primary">Shop the Range</a>
+      </div>
+    </div>
+  )}
+</section>
 
 
 
