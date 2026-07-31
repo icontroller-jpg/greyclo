@@ -193,55 +193,7 @@ export default function Home() {
       {/* ── BRAND STATEMENT ── */}
 
 
-      {/* ── DROP EVENT: most recently posted product ── */}
-      <section className="drop-event" id="collections">
-        <div className="section-head">
-          <div>
-            <span className="section-eyebrow">The Current Drop</span>
-            <h2 className="section-title">Every Piece Is<br />a Small Riot.</h2>
-          </div>
-          <a href="#shop" className="btn-ghost">View Full Collection →</a>
-        </div>
-        {products.length > 0 ? (
-          <div className="drop-grid">
-            <div className="drop-visual" style={bgStyle(products[0].image)}>
-              <span className="drop-tag">{products[0].category}</span>
-            </div>
-            <div className="drop-info">
-              <span className="drop-num">Latest Drop</span>
-              <h3>{products[0].title}</h3>
-              <p className="drop-desc">{products[0].description}</p>
-              <div className="drop-meta">
-                <div><span className="drop-label">Price</span><span className="drop-value">${products[0].price}</span></div>
-                <div>
-                  <span className="drop-label">Status</span>
-                  <span className="drop-value">
-                    {products[0].status === "sold" ? "Sold" : "Available Now"}
-                  </span>
-                </div>
-              </div>
-              <Link to={`/product/${products[0].id}`} className="btn-primary">
-                Shop This Piece
-              </Link>
-            </div>
-          </div>
-        ) : (
-          <div className="drop-grid">
-            <div className="drop-visual" style={bgStyle(siteImages.drop)}>
-              <span className="drop-tag">Coming Soon</span>
-            </div>
-            <div className="drop-info">
-              <span className="drop-num">001</span>
-              <h3>The First Statement</h3>
-              <p className="drop-desc">
-                Built from washed cotton and heavyweight fleece — no filler pieces, no reissues.
-                When it's gone, it's part of the archive.
-              </p>
-              <a href="#shop" className="btn-primary">Shop the Range</a>
-            </div>
-          </div>
-        )}
-      </section>
+
 
 
       {/* ── SHOP BY CATEGORY ── */}
@@ -278,38 +230,7 @@ export default function Home() {
         )}
       </section>
 
-      {/* ── SHOP THE LOOK ── */}
-      <section className="look-section">
-        <div className="section-head">
-          <div>
-            <span className="section-eyebrow">Complete Fits</span>
-            <h2 className="section-title">Shop the Look.</h2>
-          </div>
-        </div>
-        <div className="look-scroller">
-          <div className="look-card" style={bgStyle(siteImages["look-0"])}><span className="look-label">Fit 01</span></div>
-          <div className="look-card" style={bgStyle(siteImages["look-1"])}><span className="look-label">Fit 02</span></div>
-          <div className="look-card" style={bgStyle(siteImages["look-2"])}><span className="look-label">Fit 03</span></div>
-        </div>
-      </section>
 
-      {/* ── CAMPAIGN ── */}
-      <section className="campaign-wrap" id="journal">
-        <div
-          className="campaign"
-          style={bgStyle(
-            siteImages.campaign,
-            "linear-gradient(0deg, rgba(10,10,10,0.92) 0%, rgba(10,10,10,0.1) 55%)"
-          )}
-        >
-          <div className="campaign-content">
-            <span className="section-eyebrow light">Campaign — Chapter 01</span>
-            <h3>Shot in the City<br />That Never Asks.</h3>
-            <p>Drop 001 was shot over three nights, no studio, no crew larger than five.</p>
-            <a href="#journal" className="btn-primary">Explore the Campaign</a>
-          </div>
-        </div>
-      </section>
 
 
 
@@ -329,15 +250,7 @@ export default function Home() {
         </form>
       </section>
 
-      {/* ── NEWSLETTER ── */}
-      <section className="newsletter">
-        <h3>Enter the<br />Circle.</h3>
-        <p>First access. Limited drops. No noise.</p>
-        <form className="notify-form" onSubmit={(e) => e.preventDefault()}>
-          <input type="email" placeholder="Enter your email" aria-label="Email signup" />
-          <button type="submit">Join</button>
-        </form>
-      </section>
+
 
       {/* ── FOOTER ── */}
       <footer className="site-footer">
