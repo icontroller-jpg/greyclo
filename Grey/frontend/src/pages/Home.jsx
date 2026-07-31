@@ -104,18 +104,6 @@ export default function Home() {
 
   return (
     <>
-      {/* ── ANNOUNCEMENT BAR ── */}
-      <div className="announce">
-        <div className="announce-track">
-          {[...Array(2)].map((_, i) => (
-            <span key={i} className="announce-group">
-              <span className="announce-item">Drop 001 — Limited Release</span>
-              <span className="announce-item">Join the List</span>
-              <span className="announce-item">No Restocks</span>
-            </span>
-          ))}
-        </div>
-      </div>
 
       {/* ── NAV ── */}
       <header className={`site-header ${scrolled ? "scrolled" : ""}`}>
@@ -181,11 +169,11 @@ export default function Home() {
           {isMobile && <p className="garment-hint">Drag to rotate</p>}
         </div>
 
-        <p className="hero-eyebrow"><span className="hero-dot" /> Drop 001 — Available Now</p>
+
 
         <div className="hero-cta-row">
           <a href="#shop" className="btn-primary">Shop the Drop</a>
-          <a href="#about" className="btn-ghost">Read the Manifesto</a>
+
         </div>
         <div className="scroll-cue">Scroll</div>
       </section>
@@ -200,8 +188,8 @@ export default function Home() {
       <section className="shop-section" id="shop">
         <div className="section-head">
           <div>
-            <span className="section-eyebrow">Shop by Category</span>
-            <h2 className="section-title">The Full Range.</h2>
+
+
           </div>
           <div className="shop-count">{products.length} pieces total</div>
         </div>
