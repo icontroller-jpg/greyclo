@@ -105,33 +105,34 @@ export default function Home() {
   return (
     <>
 
-      {/* ── NAV ── */}
-      <header className={`site-header ${scrolled ? "scrolled" : ""}`}>
-        <span className="nav-logo">Grey</span>
-        <nav className="nav-primary">
-          <Link to="/shop">Shop</Link>
-          <Link to="/collections">Collections</Link>
-          <Link to="/journal">Journal</Link>
-          <Link to="/about">About</Link>
-        </nav>
-        <div className="nav-icons">
+{/* ── NAV ── */}
+<header className={`site-header ${scrolled ? "scrolled" : ""}`}>
+  <button
+    className={`nav-hamburger ${menuOpen ? "open" : ""}`}
+    onClick={() => setMenuOpen(!menuOpen)}
+    aria-label="Toggle menu"
+  >
+    <span /><span /><span />
+  </button>
 
-          <Link to="/login" className="icon-btn" aria-label="Account">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></svg>
-          </Link>
+  <nav className="nav-primary">
+    <Link to="/shop">Shop</Link>
+    <Link to="/collections">Collections</Link>
+    <Link to="/journal">Journal</Link>
+    <Link to="/about">About</Link>
+  </nav>
 
-          <Link to="/cart" className="icon-btn" aria-label="Cart">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6"><path d="M6 6h15l-1.5 9h-12z"/><circle cx="9" cy="20" r="1"/><circle cx="18" cy="20" r="1"/><path d="M6 6L4 3H2"/></svg>
-          </Link>
-          <button
-            className={`nav-hamburger ${menuOpen ? "open" : ""}`}
-            onClick={() => setMenuOpen(!menuOpen)}
-            aria-label="Toggle menu"
-          >
-            <span /><span /><span />
-          </button>
-        </div>
-      </header>
+  <span className="nav-logo">Grey</span>
+
+  <div className="nav-icons">
+    <Link to="/login" className="icon-btn" aria-label="Account">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></svg>
+    </Link>
+    <Link to="/cart" className="icon-btn" aria-label="Cart">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6"><path d="M6 6h15l-1.5 9h-12z"/><circle cx="9" cy="20" r="1"/><circle cx="18" cy="20" r="1"/><path d="M6 6L4 3H2"/></svg>
+    </Link>
+  </div>
+</header>
 
       <div className={`mobile-menu ${menuOpen ? "open" : ""}`}>
         <a className="mobile-menu-link" href="#shop" onClick={() => setMenuOpen(false)}>Shop</a>
