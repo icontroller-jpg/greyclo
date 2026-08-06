@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { getProducts } from "../services/productService";
 import "./Collections.css";
 
-const CATEGORIES = ["NEW", "MENS", "WOMENS", "FOOTWEAR", "ACCESSORIES", "SLIDES"];
+const CATEGORIES = ["NEW", "MENS", "WOMENS"];
 
 export default function Collections() {
   const [products, setProducts] = useState([]);
