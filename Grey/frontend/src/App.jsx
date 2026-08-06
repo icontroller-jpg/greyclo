@@ -1,4 +1,5 @@
 import { HashRouter, Routes, Route } from "react-router-dom";
+import { CurrencyProvider } from "./context/CurrencyContext";
 
 import Home from "./pages/Home";
 import Shop from "./pages/Shop";
@@ -16,25 +17,27 @@ import Signup from "./pages/Signup";
 
 function App() {
   return (
-    <HashRouter>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/shop" element={<Shop />} />
-        <Route path="/collections" element={<Collections />} />
-        <Route path="/journal" element={<Journal />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/product/:id" element={<ProductPage />} />
-        <Route path="/collection/:category" element={<Collection />} />
-        <Route path="/cart" element={<Cart />} />
-        <Route path="/checkout" element={<Checkout />} />
+    <CurrencyProvider defaultCurrency="USD">
+      <HashRouter>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/shop" element={<Shop />} />
+          <Route path="/collections" element={<Collections />} />
+          <Route path="/journal" element={<Journal />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/product/:id" element={<ProductPage />} />
+          <Route path="/collection/:category" element={<Collection />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/checkout" element={<Checkout />} />
 
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
 
-        <Route path="/admin" element={<AdminDashboard />} />
-        <Route path="/admin/add" element={<AddProduct />} />
-      </Routes>
-    </HashRouter>
+          <Route path="/admin" element={<AdminDashboard />} />
+          <Route path="/admin/add" element={<AddProduct />} />
+        </Routes>
+      </HashRouter>
+    </CurrencyProvider>
   );
 }
 

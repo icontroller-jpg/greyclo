@@ -2,6 +2,8 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState, useContext, useRef } from "react";
 import { getProduct } from "../services/productService";
 import { CartContext } from "../context/CartContext";
+import { useCurrency } from "../context/CurrencyContext";
+
 
 export default function ProductPage() {
   const { id } = useParams();
@@ -27,6 +29,8 @@ export default function ProductPage() {
     product.images && product.images.length > 0
       ? product.images.map((img) => img.image)
       : [product.image];
+
+  const { format } = useCurrency();
 
   const handleCartClick = async () => {
     if (added) {
@@ -277,7 +281,7 @@ export default function ProductPage() {
 
           <div className="pp-details">
             <h2 className="pp-title">{product.title}</h2>
-            <p className="pp-price">${product.price}</p>
+            <p className="pp-price">{format(product.price)}</p>
           </div>
 
           <button

@@ -1,6 +1,8 @@
 import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { CartContext } from "../context/CartContext";
+import { useCurrency } from "../context/CurrencyContext";
+
 
 function optimizeImage(url, width = 600) {
   if (!url || !url.includes("cloudinary.com")) return url;
@@ -11,6 +13,8 @@ function ProductCard({ product }) {
   const { addToCart } = useContext(CartContext);
   const navigate = useNavigate();
   const [busy, setBusy] = useState(false);
+
+  const { format } = useCurrency();
 
   const goToProduct = () => {
     navigate(`/product/${product.id}`);
@@ -207,7 +211,7 @@ function ProductCard({ product }) {
 
           <div className="pc-info">
             <h3 className="pc-title">{product.title}</h3>
-            <p className="pc-price">${product.price}</p>
+            <p className="pc-price">{format(product.price)}</p>
             <div className="pc-spacer" />
           </div>
         </div>

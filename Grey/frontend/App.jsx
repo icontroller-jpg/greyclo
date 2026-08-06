@@ -5,6 +5,9 @@ import ProductPage from "./pages/ProductPage";
 import Cart from "./pages/Cart";
 import AdminDashboard from "./pages/AdminDashboard";
 import AddProduct from "./pages/AddProduct";
+import { CurrencyProvider } from "./context/CurrencyContext";
+import CurrencyBar from "./components/CurrencyBar";
+
 
 function App() {
   return (
