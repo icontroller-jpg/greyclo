@@ -112,6 +112,7 @@
   font-weight: 200;
   letter-spacing: 0.06em;
   text-transform: uppercase;
+  padding: -13px 0px;
 }
 .hero-grain {
   position: absolute; inset: 0;
