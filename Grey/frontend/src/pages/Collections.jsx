@@ -31,6 +31,8 @@ export default function Collections() {
           align-items: flex-start;
           justify-content: space-between;
           padding: 20px 20px 0;
+          max-width: 900px;
+          margin: 0 auto;
         }
 
         .col-icon-btn {
@@ -79,10 +81,12 @@ export default function Collections() {
 
         .col-grid {
           display: grid;
-          grid-template-columns: repeat(2, 1fr);
+          grid-template-columns: repeat(3, 1fr);
           padding: 8px 20px 40px;
-          column-gap: 20px;
-          row-gap: 36px;
+          column-gap: 16px;
+          row-gap: 32px;
+          max-width: 900px;
+          margin: 0 auto;
         }
 
         .col-empty {
@@ -101,12 +105,13 @@ export default function Collections() {
 
         .col-tile-img {
           width: 100%;
+          max-width: 200px;
           aspect-ratio: 1 / 1;
           display: flex;
           align-items: center;
           justify-content: center;
           overflow: hidden;
-          margin-bottom: 14px;
+          margin: 0 auto 14px;
         }
 
         .col-tile-img img {
@@ -126,6 +131,11 @@ export default function Collections() {
 
         @media (max-width: 480px) {
           .col-filters { font-size: 11px; }
+          .col-grid {
+            grid-template-columns: repeat(2, 1fr);
+            column-gap: 12px;
+            row-gap: 24px;
+          }
         }
       `}</style>
 
