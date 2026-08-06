@@ -457,6 +457,25 @@
   font-family: 'JetBrains Mono', monospace; letter-spacing: 0.06em; text-transform: uppercase;
 }
 
+/* ── CURRENCY SWITCH (footer) ── */
+.currency-switch select {
+  background: transparent;
+  border: 1px solid var(--line);
+  color: var(--washed);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 6px 10px;
+  cursor: pointer;
+}
+.currency-switch select:hover,
+.currency-switch select:focus {
+  border-color: var(--off-white);
+  color: var(--off-white);
+  outline: none;
+}
+
 /* ══════════════════ TABLET ≤1080px ══════════════════ */
 @media (max-width: 1080px) {
   .drop-grid { grid-template-columns: 1fr; }

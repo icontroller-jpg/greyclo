@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { getProducts } from "../services/productService";
 import { getSiteImages } from "../services/siteImageService";
 import { CATEGORIES } from "../constants/categories";
+import { useCurrency } from "../context/CurrencyContext";
 import "./Home.css";
 
 // Builds a background-image style, falling back to `undefined` (letting the
@@ -36,6 +37,8 @@ export default function Home() {
   const [garmentRotation, setGarmentRotation] = useState(0);
   const [showAllCategories, setShowAllCategories] = useState(false);
   const dragState = useRef({ dragging: false, startX: 0, startRotation: 0 });
+
+  const { currency, setCurrency, currencies } = useCurrency();
 
   useEffect(() => {
     const check = () => setIsMobile(window.innerWidth <= 900);
@@ -226,6 +229,17 @@ export default function Home() {
         </div>
         <div className="footer-bottom">
           <span>© 2026 Grey. All rights reserved.</span>
+          <div className="currency-switch">
+            <select
+              value={currency}
+              onChange={(e) => setCurrency(e.target.value)}
+              aria-label="Select currency"
+            >
+              {currencies.map((c) => (
+                <option key={c} value={c}>{c}</option>
+              ))}
+            </select>
+          </div>
           <span>Designed for those who move different.</span>
         </div>
       </footer>
