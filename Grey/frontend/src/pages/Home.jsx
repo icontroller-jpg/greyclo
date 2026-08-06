@@ -116,7 +116,6 @@ export default function Home() {
   </button>
 
   <nav className="nav-primary">
-    <Link to="/shop">Shop</Link>
     <Link to="/collections">Collections</Link>
     <Link to="/journal">Journal</Link>
     <Link to="/about">About</Link>
@@ -154,7 +153,7 @@ export default function Home() {
 
   </div>
 
-  <Link to="/shop" className="btn-primary hero-shop-btn">Shop Now</Link>
+  <Link to="/collections" className="btn-primary hero-shop-btn">Shop Now</Link>
 
   <div className="scroll-cue">Scroll</div>
 </section>
