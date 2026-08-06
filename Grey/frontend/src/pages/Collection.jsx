@@ -1,26 +1,26 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { getProducts } from "../services/productService";
-import { getSiteImages } from "../services/siteImageService";
-import { CATEGORIES } from "../constants/categories";
+import ProductCard from "../components/ProductCard";
 import "./Collections.css";
 
-function bg(url) {
-  return url ? { backgroundImage: `url(${url})`, backgroundSize: "cover", backgroundPosition: "center" } : {};
-}
-
-const RECENT_CATEGORIES = CATEGORIES.filter((c) => c.recent);
-
 export default function Collections() {
-  const [siteImages, setSiteImages] = useState({});
-  const [latest, setLatest] = useState(null);
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    getSiteImages().then(setSiteImages);
+    let mounted = true;
     getProducts().then((data) => {
-      if (data && data.length > 0) setLatest(data[0]);
+      if (!mounted) return;
+      setProducts(data || []);
+      setLoading(false);
     });
+    return () => {
+      mounted = false;
+    };
   }, []);
+
+  const latest = products[0] || null;
 
   return (
     <div className="collections-page">
@@ -35,7 +35,10 @@ export default function Collections() {
       </div>
 
       {latest && (
-        <div className="collections-featured" style={bg(latest.image)}>
+        <div
+          className="collections-featured"
+          style={{ backgroundImage: `url(${latest.image})`, backgroundSize: "cover", backgroundPosition: "center" }}
+        >
           <div className="collections-featured-content">
             <span className="collections-tag">Current Drop</span>
             <h2>{latest.title}</h2>
@@ -44,17 +47,14 @@ export default function Collections() {
         </div>
       )}
 
-      <div className="collections-tiles">
-        {RECENT_CATEGORIES.map((c) => (
-          <Link
-            key={c.value}
-            to={`/collection/${c.value}`}
-            className="collections-tile"
-            style={bg(siteImages[`category-${c.value}`])}
-          >
-            <span className="collections-tile-label">{c.label}</span>
-          </Link>
-        ))}
+      <div className="collections-grid">
+        {loading ? (
+          <div className="collections-empty">Loading…</div>
+        ) : products.length === 0 ? (
+          <div className="collections-empty">No pieces here yet</div>
+        ) : (
+          products.map((p) => <ProductCard key={p.id} product={p} />)
+        )}
       </div>
 
       <div className="collections-cta">
