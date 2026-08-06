@@ -262,7 +262,7 @@
   letter-spacing: 0.14em; text-transform: uppercase; color: var(--off-white); margin-bottom: 12px;
 }
 .hero-shop-btn {
-  margin-top: 8px;
+  margin-top: 6px;
   z-index: 1;
   padding: 15px 100px;
 }
