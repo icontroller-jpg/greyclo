@@ -263,6 +263,7 @@
 .hero-shop-btn {
   margin-top: 24px;
   z-index: 1;
+  padding: 15px 60px;
 }
 .section-eyebrow.light { color: var(--washed); }
 .section-eyebrow.center { text-align: center; margin: 0 auto 14px; }
