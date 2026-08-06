@@ -2,7 +2,6 @@ import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { CartContext } from "../context/CartContext";
 
-
 function optimizeImage(url, width = 600) {
   if (!url || !url.includes("cloudinary.com")) return url;
   return url.replace("/upload/", `/upload/f_auto,q_auto,w_${width},c_fill/`);
@@ -13,7 +12,12 @@ function ProductCard({ product }) {
   const navigate = useNavigate();
   const [busy, setBusy] = useState(false);
 
-  const buy = async () => {
+  const goToProduct = () => {
+    navigate(`/product/${product.id}`);
+  };
+
+  const buy = async (e) => {
+    e.stopPropagation();
     if (product.soldOut || busy) return;
     setBusy(true);
     try {
@@ -37,6 +41,10 @@ function ProductCard({ product }) {
           background: var(--ivory, #f2ede4);
           position: relative;
           -webkit-tap-highlight-color: transparent;
+        }
+
+        .pc-clickable {
+          cursor: pointer;
         }
 
         .pc-img-wrap {
@@ -180,26 +188,28 @@ function ProductCard({ product }) {
       `}</style>
 
       <div className="pc">
-        <div className="pc-img-wrap">
-          <img
-            src={optimizeImage(product.image, 600)}
-            alt={product.title}
-            loading="lazy"
-            decoding="async"
-            width="600"
-            height="600"
-          />
-          {product.soldOut && (
-            <div className="pc-sold-overlay">
-              <span className="pc-sold-label">Sold</span>
-            </div>
-          )}
-        </div>
+        <div className="pc-clickable" onClick={goToProduct}>
+          <div className="pc-img-wrap">
+            <img
+              src={optimizeImage(product.image, 600)}
+              alt={product.title}
+              loading="lazy"
+              decoding="async"
+              width="600"
+              height="600"
+            />
+            {product.soldOut && (
+              <div className="pc-sold-overlay">
+                <span className="pc-sold-label">Sold</span>
+              </div>
+            )}
+          </div>
 
-        <div className="pc-info">
-          <h3 className="pc-title">{product.title}</h3>
-          <p className="pc-price">${product.price}</p>
-          <div className="pc-spacer" />
+          <div className="pc-info">
+            <h3 className="pc-title">{product.title}</h3>
+            <p className="pc-price">${product.price}</p>
+            <div className="pc-spacer" />
+          </div>
         </div>
 
         <button

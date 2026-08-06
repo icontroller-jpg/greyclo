@@ -14,19 +14,11 @@ export default function ProductPage() {
 
   useEffect(() => {
     setAdded(false);
-    loadProduct();
+    getProduct(id).then(setProduct);
   }, [id]);
-
-  const loadProduct = async () => {
-    const data = await getProduct(id);
-    setProduct(data);
-  };
 
   if (!product) return <p className="pp-loading">Loading…</p>;
 
-  // Gallery images come from the ProductImage model (product.images).
-  // Older products created before multi-image support won't have any, so
-  // fall back to the single cover image in that case.
   const gallery =
     product.images && product.images.length > 0
       ? product.images.map((img) => img.image)
@@ -60,9 +52,6 @@ export default function ProductPage() {
       </div>
 
       <div className="pp-info">
-        {gallery.length > 1 && (
-          <span className="pp-tag">{gallery.length} Photos — Scroll to View</span>
-        )}
         <h2 className="pp-title">{product.title}</h2>
         <p className="pp-price">${product.price}</p>
         <p className="pp-desc">{product.description}</p>
