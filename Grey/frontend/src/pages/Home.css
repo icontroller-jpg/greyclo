@@ -108,8 +108,8 @@
 .hero-line {
   font-family: 'Playfair Display', serif;
   color: #fff;
-  font-size: clamp(1.2rem, 4vw, 3rem);
-  font-weight: 300;
+  font-size: clamp(1.0rem, 4vw, 3rem);
+  font-weight: 200;
   letter-spacing: 0.06em;
   text-transform: uppercase;
 }

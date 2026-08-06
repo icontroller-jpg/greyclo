@@ -150,9 +150,8 @@ export default function Home() {
   )}
 >
   <div className="hero-text">
-    <span className="hero-line">Jay Z 1996</span>
-    <span className="hero-line">Alkaline 2016</span>
-    <span className="hero-line">Grey 2026</span>
+    <span className="hero-line">Jay Z 1996 Alkaline 2016 Grey 2026</span>
+
   </div>
 
   <Link to="/shop" className="btn-primary hero-shop-btn">Shop Now</Link>
