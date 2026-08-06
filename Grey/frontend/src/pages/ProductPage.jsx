@@ -1,5 +1,5 @@
 import { useParams, useNavigate } from "react-router-dom";
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState, useContext, useRef } from "react";
 import { getProduct } from "../services/productService";
 import { CartContext } from "../context/CartContext";
 
@@ -11,10 +11,13 @@ export default function ProductPage() {
   const [added, setAdded] = useState(false);
   const [adding, setAdding] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
+  const [expanded, setExpanded] = useState(false);
+  const touchStartX = useRef(null);
 
   useEffect(() => {
     setAdded(false);
     setActiveIndex(0);
+    setExpanded(false);
     getProduct(id).then(setProduct);
   }, [id]);
 
@@ -42,186 +45,263 @@ export default function ProductPage() {
     }
   };
 
+  const onTouchStart = (e) => {
+    touchStartX.current = e.touches[0].clientX;
+  };
+
+  const onTouchEnd = (e) => {
+    if (touchStartX.current === null || gallery.length <= 1) return;
+    const delta = e.changedTouches[0].clientX - touchStartX.current;
+    if (delta > 40) {
+      setActiveIndex((i) => (i === 0 ? gallery.length - 1 : i - 1));
+    } else if (delta < -40) {
+      setActiveIndex((i) => (i === gallery.length - 1 ? 0 : i + 1));
+    }
+    touchStartX.current = null;
+  };
+
   return (
     <>
       <style>{`
-        .pp-wrap {
-          display: flex;
+        .pp-page {
           min-height: 100vh;
-          background: #0e0d0b;
+          background: #f4f2ee;
+          display: flex;
+          justify-content: center;
         }
 
-        .pp-gallery {
-          position: sticky;
-          top: 0;
-          height: 100vh;
-          width: 50%;
+        .pp-wrap {
+          width: 100%;
+          max-width: 480px;
+          background: #fff;
+          min-height: 100vh;
           display: flex;
           flex-direction: column;
         }
 
-        .pp-main-img {
-          flex: 1;
-          position: relative;
-          overflow: hidden;
-          background: #0e0d0b;
+        .pp-topbar {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding: 20px 20px 0;
         }
 
-        .pp-main-img img {
+        .pp-icon-btn {
+          background: none;
+          border: none;
+          padding: 8px;
+          margin: -8px;
+          cursor: pointer;
+          color: #111;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .pp-gallery {
+          position: relative;
+          width: 100%;
+          aspect-ratio: 1 / 1;
+          overflow: hidden;
+          touch-action: pan-y;
+        }
+
+        .pp-slide-track {
+          display: flex;
+          width: 100%;
+          height: 100%;
+          transition: transform 0.35s cubic-bezier(0.25,0.46,0.45,0.94);
+        }
+
+        .pp-slide {
+          width: 100%;
+          height: 100%;
+          flex-shrink: 0;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .pp-slide img {
           width: 100%;
           height: 100%;
           object-fit: contain;
           display: block;
         }
 
-        .pp-nav-arrow {
-          position: absolute;
-          top: 50%;
-          transform: translateY(-50%);
-          background: rgba(242,237,228,0.1);
-          border: none;
-          color: #f2ede4;
-          width: 40px;
-          height: 40px;
-          cursor: pointer;
-          font-size: 18px;
+        .pp-dots {
           display: flex;
-          align-items: center;
           justify-content: center;
-        }
-        .pp-nav-arrow:hover { background: rgba(242,237,228,0.2); }
-        .pp-nav-prev { left: 12px; }
-        .pp-nav-next { right: 12px; }
-
-        .pp-thumbs {
-          display: flex;
-          gap: 8px;
-          padding: 12px;
-          overflow-x: auto;
+          gap: 6px;
+          padding: 16px 0;
         }
 
-        .pp-thumb {
-          width: 56px;
-          height: 56px;
-          flex-shrink: 0;
+        .pp-dot {
+          width: 4px;
+          height: 4px;
+          border-radius: 50%;
+          background: #d4d0c8;
+          border: none;
+          padding: 0;
           cursor: pointer;
-          opacity: 0.5;
-          border: 1px solid transparent;
-          background: #1a1815;
+          transition: background 0.2s, transform 0.2s;
         }
 
-        .pp-thumb img {
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-          display: block;
+        .pp-dot.active {
+          background: #111;
+          transform: scale(1.4);
         }
 
-        .pp-thumb.active {
-          opacity: 1;
-          border-color: #f2ede4;
-        }
-
-        .pp-info {
-          width: 50%;
-          padding: 60px 60px 0;
-          color: #f2ede4;
-          font-family: 'Didact Gothic', sans-serif;
+        .pp-details {
+          text-align: center;
+          padding: 8px 24px 0;
         }
 
         .pp-title {
-          font-family: 'IM Fell English', serif;
+          font-family: 'Didact Gothic', sans-serif;
           font-weight: 400;
-          font-size: 48px;
-          margin: 0 0 16px;
+          font-size: 13px;
+          letter-spacing: 0.08em;
+          text-transform: uppercase;
+          color: #111;
+          margin: 0 0 6px;
         }
 
         .pp-price {
-          font-size: 20px;
-          margin: 0 0 24px;
+          font-family: 'Didact Gothic', sans-serif;
+          font-size: 13px;
+          color: rgba(17,17,17,0.6);
+          margin: 0;
+        }
+
+        .pp-expand-btn {
+          background: none;
+          border: none;
+          cursor: pointer;
+          color: #111;
+          padding: 18px;
+          margin: 4px auto 0;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          transition: transform 0.25s ease;
+        }
+
+        .pp-expand-btn.open {
+          transform: rotate(45deg);
+        }
+
+        .pp-panel {
+          overflow: hidden;
+          max-height: 0;
+          transition: max-height 0.35s ease;
+          padding: 0 24px;
+        }
+
+        .pp-panel.open {
+          max-height: 400px;
         }
 
         .pp-desc {
-          font-size: 13px;
-          line-height: 1.6;
-          color: rgba(242,237,228,0.7);
-          margin-bottom: 32px;
+          font-family: 'Didact Gothic', sans-serif;
+          font-size: 12px;
+          line-height: 1.7;
+          color: rgba(17,17,17,0.65);
+          text-align: center;
+          padding-bottom: 20px;
         }
 
         .pp-cart-btn {
-          background: #f2ede4;
-          color: #0e0d0b;
+          width: calc(100% - 48px);
+          margin: 0 24px 28px;
+          background: #111;
+          color: #fff;
           border: none;
-          padding: 16px 32px;
+          padding: 15px;
           font-family: 'Didact Gothic', sans-serif;
-          font-size: 12px;
-          letter-spacing: 0.15em;
+          font-size: 11px;
+          letter-spacing: 0.14em;
           text-transform: uppercase;
           cursor: pointer;
         }
-        .pp-cart-btn:disabled { opacity: 0.6; cursor: not-allowed; }
-        .pp-cart-btn.added { background: #d8cfbd; }
 
-        @media (max-width: 800px) {
-          .pp-wrap { flex-direction: column; }
-          .pp-gallery, .pp-info { width: 100%; }
-          .pp-gallery { position: relative; height: auto; }
-          .pp-main-img { aspect-ratio: 1 / 1; }
-          .pp-info { padding: 30px 20px; }
-          .pp-title { font-size: 32px; }
-        }
+        .pp-cart-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+        .pp-spacer { flex: 1; }
       `}</style>
 
-      <div className="pp-wrap">
-        <div className="pp-gallery">
-          <div className="pp-main-img">
-            <img src={gallery[activeIndex]} alt={`${product.title} — photo ${activeIndex + 1}`} />
-            {gallery.length > 1 && (
-              <>
-                <button
-                  className="pp-nav-arrow pp-nav-prev"
-                  onClick={() => setActiveIndex((i) => (i === 0 ? gallery.length - 1 : i - 1))}
-                  aria-label="Previous image"
-                >
-                  ‹
-                </button>
-                <button
-                  className="pp-nav-arrow pp-nav-next"
-                  onClick={() => setActiveIndex((i) => (i === gallery.length - 1 ? 0 : i + 1))}
-                  aria-label="Next image"
-                >
-                  ›
-                </button>
-              </>
-            )}
+      <div className="pp-page">
+        <div className="pp-wrap">
+          <div className="pp-topbar">
+            <button className="pp-icon-btn" onClick={() => navigate(-1)} aria-label="Back">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                <path d="M15 18l-6-6 6-6" />
+              </svg>
+            </button>
+            <button className="pp-icon-btn" onClick={() => navigate("/cart")} aria-label="Cart">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                <path d="M6 6h15l-1.5 9h-12z"/><circle cx="9" cy="20" r="1"/><circle cx="18" cy="20" r="1"/><path d="M6 6L4 3H2"/>
+              </svg>
+            </button>
           </div>
 
-          {gallery.length > 1 && (
-            <div className="pp-thumbs">
+          <div
+            className="pp-gallery"
+            onTouchStart={onTouchStart}
+            onTouchEnd={onTouchEnd}
+          >
+            <div
+              className="pp-slide-track"
+              style={{ transform: `translateX(-${activeIndex * 100}%)` }}
+            >
               {gallery.map((src, i) => (
-                <div
-                  key={i}
-                  className={`pp-thumb ${i === activeIndex ? "active" : ""}`}
-                  onClick={() => setActiveIndex(i)}
-                >
-                  <img src={src} alt={`Thumbnail ${i + 1}`} />
+                <div className="pp-slide" key={i}>
+                  <img src={src} alt={`${product.title} — photo ${i + 1}`} />
                 </div>
               ))}
             </div>
-          )}
-        </div>
+          </div>
 
-        <div className="pp-info">
-          <h2 className="pp-title">{product.title}</h2>
-          <p className="pp-price">${product.price}</p>
-          <p className="pp-desc">{product.description}</p>
+          {gallery.length > 1 && (
+            <div className="pp-dots">
+              {gallery.map((_, i) => (
+                <button
+                  key={i}
+                  className={`pp-dot ${i === activeIndex ? "active" : ""}`}
+                  onClick={() => setActiveIndex(i)}
+                  aria-label={`Go to image ${i + 1}`}
+                />
+              ))}
+            </div>
+          )}
+
+          <div className="pp-details">
+            <h2 className="pp-title">{product.title}</h2>
+            <p className="pp-price">${product.price}</p>
+          </div>
 
           <button
-            className={`pp-cart-btn ${added ? "added" : ""}`}
+            className={`pp-expand-btn ${expanded ? "open" : ""}`}
+            onClick={() => setExpanded((v) => !v)}
+            aria-label={expanded ? "Hide details" : "Show details"}
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+              <path d="M12 5v14M5 12h14" />
+            </svg>
+          </button>
+
+          <div className={`pp-panel ${expanded ? "open" : ""}`}>
+            <p className="pp-desc">{product.description}</p>
+          </div>
+
+          <div className="pp-spacer" />
+
+          <button
+            className="pp-cart-btn"
             onClick={handleCartClick}
             disabled={adding}
           >
-            {adding ? "Adding…" : added ? "Buy Now →" : "Add to Cart"}
+            {adding ? "Adding…" : added ? "Buy Now" : "Add to Cart"}
           </button>
         </div>
       </div>
