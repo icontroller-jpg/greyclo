@@ -1,5 +1,7 @@
 // Single source of truth for product categories — keep this in sync with
 // the CATEGORY_CHOICES list in backend/products/models.py.
+// `recent: true` marks categories to feature on the Collections page —
+// remove the flag once a category is no longer "new".
 export const CATEGORIES = [
   { value: "shirts", label: "Shirts" },
   { value: "windbreaker-track-pants", label: "Windbreaker Track Pants" },
@@ -14,9 +16,9 @@ export const CATEGORIES = [
   { value: "durags-wave-caps", label: "Durags & Wave Caps" },
   { value: "tees", label: "Tees" },
   { value: "graphic-tees", label: "Graphic Tees" },
-  { value: "varsity-jackets", label: "Varsity Jackets" },
-  { value: "puffer-jackets", label: "Puffer Jackets" },
-  { value: "jerseys", label: "Jerseys" },
-  { value: "hoodies", label: "Hoodies" },
-  { value: "zipper-hoodies", label: "Zipper Hoodies" },
+  { value: "varsity-jackets", label: "Varsity Jackets", recent: true },
+  { value: "puffer-jackets", label: "Puffer Jackets", recent: true },
+  { value: "jerseys", label: "Jerseys", recent: true },
+  { value: "hoodies", label: "Hoodies", recent: true },
+  { value: "zipper-hoodies", label: "Zipper Hoodies", recent: true },
 ];

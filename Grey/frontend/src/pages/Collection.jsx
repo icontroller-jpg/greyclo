@@ -9,6 +9,8 @@ function bg(url) {
   return url ? { backgroundImage: `url(${url})`, backgroundSize: "cover", backgroundPosition: "center" } : {};
 }
 
+const RECENT_CATEGORIES = CATEGORIES.filter((c) => c.recent);
+
 export default function Collections() {
   const [siteImages, setSiteImages] = useState({});
   const [latest, setLatest] = useState(null);
@@ -43,7 +45,7 @@ export default function Collections() {
       )}
 
       <div className="collections-tiles">
-        {CATEGORIES.map((c) => (
+        {RECENT_CATEGORIES.map((c) => (
           <Link
             key={c.value}
             to={`/collection/${c.value}`}
