@@ -15,6 +15,11 @@ CATEGORY_CHOICES = [
     ("windbreaker-track-pants", "Windbreaker Track Pants"),
     ("tees", "Tees"),
     ("graphic-tees", "Graphic Tees"),
+    ("varsity-jackets", "Varsity Jackets"),
+    ("puffer-jackets", "Puffer Jackets"),
+    ("jerseys", "Jerseys"),
+    ("hoodies", "Hoodies"),
+    ("zipper-hoodies", "Zipper Hoodies"),
 ]
 
 
