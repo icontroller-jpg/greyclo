@@ -82,7 +82,7 @@ export default function Collections() {
         /* ---- Grid: capped width + responsive column count ---- */
         .col-grid {
           display: grid;
-          grid-template-columns: repeat(4, 1fr);
+          grid-template-columns: repeat(3, 1fr);
           padding: 8px 20px 40px;
           column-gap: 20px;
           row-gap: 36px;
