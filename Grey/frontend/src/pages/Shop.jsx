@@ -2,14 +2,10 @@ import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { getProducts } from "../services/productService";
 import ProductCard from "../components/ProductCard";
+import { CATEGORIES } from "../constants/categories";
 import "./Shop.css";
 
-const FILTERS = [
-  { key: "all", label: "All" },
-  { key: "shirts", label: "Shirts" },
-  { key: "jackets", label: "Jackets" },
-  { key: "bottoms", label: "Bottoms" },
-];
+const FILTERS = [{ value: "all", label: "All" }, ...CATEGORIES];
 
 export default function Shop() {
   const [products, setProducts] = useState([]);
@@ -47,9 +43,9 @@ export default function Shop() {
       <div className="shop-filters">
         {FILTERS.map((f) => (
           <button
-            key={f.key}
-            className={`shop-filter-btn ${active === f.key ? "active" : ""}`}
-            onClick={() => setActive(f.key)}
+            key={f.value}
+            className={`shop-filter-btn ${active === f.value ? "active" : ""}`}
+            onClick={() => setActive(f.value)}
           >
             {f.label}
           </button>

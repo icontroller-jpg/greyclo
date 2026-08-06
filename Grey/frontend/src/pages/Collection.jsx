@@ -1,49 +1,63 @@
 import { useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { getProducts } from "../services/productService";
-import ProductCard from "../components/ProductCard";
+import { getSiteImages } from "../services/siteImageService";
 import { CATEGORIES } from "../constants/categories";
-import "./Collection.css";
+import "./Collections.css";
 
-export default function Collection() {
-  const { category } = useParams();
-  const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(true);
+function bg(url) {
+  return url ? { backgroundImage: `url(${url})`, backgroundSize: "cover", backgroundPosition: "center" } : {};
+}
+
+export default function Collections() {
+  const [siteImages, setSiteImages] = useState({});
+  const [latest, setLatest] = useState(null);
 
   useEffect(() => {
-    let active = true;
-    setLoading(true);
+    getSiteImages().then(setSiteImages);
     getProducts().then((data) => {
-      if (!active) return;
-      setProducts((data || []).filter((p) => p.category === category));
-      setLoading(false);
+      if (data && data.length > 0) setLatest(data[0]);
     });
-    return () => {
-      active = false;
-    };
-  }, [category]);
-
-  const label = CATEGORIES.find((c) => c.value === category)?.label || category;
+  }, []);
 
   return (
-    <div className="collection-page">
-      <div className="collection-head">
-        <Link to="/" className="collection-back">← Back to Home</Link>
-        <span className="collection-eyebrow">Collection</span>
-        <h1 className="collection-title">{label}</h1>
-        <p className="collection-count">
-          {loading ? "Loading…" : `${products.length} piece${products.length !== 1 ? "s" : ""}`}
+    <div className="collections-page">
+      <div className="collections-head">
+        <Link to="/" className="collections-back">← Back to Home</Link>
+        <span className="collections-eyebrow">Every Drop, In One Place</span>
+        <h1 className="collections-title">The<br />Collections.</h1>
+        <p className="collections-sub">
+          No filler pieces, no reissues. Each collection is a limited run —
+          once it's gone, it's part of the archive.
         </p>
       </div>
 
-      <div className="collection-grid">
-        {loading ? (
-          <div className="collection-empty">Loading…</div>
-        ) : products.length === 0 ? (
-          <div className="collection-empty">No pieces in this category yet</div>
-        ) : (
-          products.map((p) => <ProductCard key={p.id} product={p} />)
-        )}
+      {latest && (
+        <div className="collections-featured" style={bg(latest.image)}>
+          <div className="collections-featured-content">
+            <span className="collections-tag">Current Drop</span>
+            <h2>{latest.title}</h2>
+            <Link to={`/product/${latest.id}`} className="btn-primary">Shop This Piece</Link>
+          </div>
+        </div>
+      )}
+
+      <div className="collections-tiles">
+        {CATEGORIES.map((c) => (
+          <Link
+            key={c.value}
+            to={`/collection/${c.value}`}
+            className="collections-tile"
+            style={bg(siteImages[`category-${c.value}`])}
+          >
+            <span className="collections-tile-label">{c.label}</span>
+          </Link>
+        ))}
+      </div>
+
+      <div className="collections-cta">
+        <p>Looking for something specific?</p>
+        <Link to="/shop" className="btn-ghost">Browse the Full Catalog →</Link>
       </div>
     </div>
   );
