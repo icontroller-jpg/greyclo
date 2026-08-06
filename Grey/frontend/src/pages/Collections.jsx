@@ -31,6 +31,8 @@ export default function Collections() {
           align-items: flex-start;
           justify-content: space-between;
           padding: 20px 20px 0;
+          max-width: 1280px;
+          margin: 0 auto;
         }
 
         .col-icon-btn {
@@ -77,12 +79,35 @@ export default function Collections() {
           margin-top: 2px;
         }
 
+        /* ---- Grid: capped width + responsive column count ---- */
         .col-grid {
           display: grid;
-          grid-template-columns: repeat(2, 1fr);
+          grid-template-columns: repeat(6, 1fr);
           padding: 8px 20px 40px;
           column-gap: 20px;
           row-gap: 36px;
+          max-width: 1280px;
+          margin: 0 auto;
+        }
+
+        @media (min-width: 640px) {
+          .col-grid {
+            grid-template-columns: repeat(3, 1fr);
+            padding: 12px 32px 60px;
+            column-gap: 24px;
+          }
+        }
+
+        @media (min-width: 900px) {
+          .col-grid {
+            grid-template-columns: repeat(4, 1fr);
+          }
+        }
+
+        @media (min-width: 1200px) {
+          .col-grid {
+            grid-template-columns: repeat(6, 1fr);
+          }
         }
 
         .col-empty {
@@ -101,12 +126,13 @@ export default function Collections() {
 
         .col-tile-img {
           width: 100%;
+          max-width: 180px;
           aspect-ratio: 1 / 1;
           display: flex;
           align-items: center;
           justify-content: center;
           overflow: hidden;
-          margin-bottom: 14px;
+          margin: 0 auto 14px;
         }
 
         .col-tile-img img {
