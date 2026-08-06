@@ -1,12 +1,14 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { getProducts } from "../services/productService";
-import ProductCard from "../components/ProductCard";
 import "./Collections.css";
+
+const CATEGORIES = ["NEW", "MENS", "WOMENS", "FOOTWEAR", "ACCESSORIES", "SLIDES"];
 
 export default function Collections() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [active, setActive] = useState("NEW");
 
   useEffect(() => {
     let mounted = true;
@@ -20,47 +22,57 @@ export default function Collections() {
     };
   }, []);
 
-  const latest = products[0] || null;
+  const visible = useMemo(() => {
+    if (active === "NEW") return products;
+    return products.filter(
+      (p) => (p.category || "").toUpperCase() === active
+    );
+  }, [products, active]);
 
   return (
-    <div className="collections-page">
-      <div className="collections-head">
-        <Link to="/" className="collections-back">← Back to Home</Link>
-        <span className="collections-eyebrow">Every Drop, In One Place</span>
-        <h1 className="collections-title">The<br />Collections.</h1>
-        <p className="collections-sub">
-          No filler pieces, no reissues. Each collection is a limited run —
-          once it's gone, it's part of the archive.
-        </p>
-      </div>
+    <div className="cx-page">
+      <header className="cx-topbar">
+        <Link to="/" className="cx-mark" aria-label="Home">
+          +
+        </Link>
+        <nav className="cx-nav" aria-label="Collections">
+          {CATEGORIES.map((c) => (
+            <button
+              key={c}
+              type="button"
+              className={`cx-nav-item ${active === c ? "is-active" : ""}`}
+              onClick={() => setActive(c)}
+            >
+              {c}
+            </button>
+          ))}
+        </nav>
+        <Link to="/cart" className="cx-cart" aria-label="Cart">
+          ⊙
+        </Link>
+      </header>
 
-      {latest && (
-        <div
-          className="collections-featured"
-          style={{ backgroundImage: `url(${latest.image})`, backgroundSize: "cover", backgroundPosition: "center" }}
-        >
-          <div className="collections-featured-content">
-            <span className="collections-tag">Current Drop</span>
-            <h2>{latest.title}</h2>
-            <Link to={`/product/${latest.id}`} className="btn-primary">Shop This Piece</Link>
-          </div>
-        </div>
-      )}
-
-      <div className="collections-grid">
+      <main className="cx-grid" role="list">
         {loading ? (
-          <div className="collections-empty">Loading…</div>
-        ) : products.length === 0 ? (
-          <div className="collections-empty">No pieces here yet</div>
+          <p className="cx-empty">Loading…</p>
+        ) : visible.length === 0 ? (
+          <p className="cx-empty">Nothing in this section yet.</p>
         ) : (
-          products.map((p) => <ProductCard key={p.id} product={p} />)
+          visible.map((p) => (
+            <Link
+              to={`/product/${p.id}`}
+              key={p.id}
+              className="cx-tile"
+              role="listitem"
+            >
+              <div className="cx-tile-img">
+                <img src={p.image} alt={p.title} loading="lazy" />
+              </div>
+              <span className="cx-tile-code">{p.code || p.title}</span>
+            </Link>
+          ))
         )}
-      </div>
-
-      <div className="collections-cta">
-        <p>Looking for something specific?</p>
-        <Link to="/shop" className="btn-ghost">Browse the Full Catalog →</Link>
-      </div>
+      </main>
     </div>
   );
 }
