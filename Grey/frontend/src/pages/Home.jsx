@@ -137,7 +137,6 @@ export default function Home() {
 </header>
 
       <div className={`mobile-menu ${menuOpen ? "open" : ""}`}>
-        <a className="mobile-menu-link" href="#shop" onClick={() => setMenuOpen(false)}>Shop</a>
         <a className="mobile-menu-link" href="#collections" onClick={() => setMenuOpen(false)}>Collections</a>
         <a className="mobile-menu-link" href="#journal" onClick={() => setMenuOpen(false)}>Journal</a>
         <a className="mobile-menu-link" href="#about" onClick={() => setMenuOpen(false)}>About</a>
