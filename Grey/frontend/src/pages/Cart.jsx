@@ -1,10 +1,12 @@
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { CartContext } from "../context/CartContext";
+import { useCurrency } from "../context/CurrencyContext";
 import "./Cart.css";
 
 export default function Cart() {
   const { items, loading, updateQuantity, removeFromCart, isLoggedIn } = useContext(CartContext);
+  const { format } = useCurrency();
 
   const total = items.reduce(
     (sum, i) => sum + Number(i.product.price) * i.quantity,
@@ -35,7 +37,7 @@ export default function Cart() {
                 <img src={item.product.image} alt={item.product.title} className="cart-img" />
                 <div className="cart-row-info">
                   <p className="cart-row-title">{item.product.title}</p>
-                  <p className="cart-row-price">${item.product.price}</p>
+                  <p className="cart-row-price">{format(item.product.price)}</p>
                 </div>
                 <div className="cart-qty">
                   <button onClick={() => updateQuantity(item, item.quantity - 1)} aria-label="Decrease quantity">−</button>
@@ -48,7 +50,7 @@ export default function Cart() {
           </div>
           <div className="cart-summary">
             <span>Total</span>
-            <span className="cart-total">${total.toFixed(2)}</span>
+            <span className="cart-total">{format(total)}</span>
           </div>
           <Link to="/checkout" className="cart-checkout-btn">Proceed to Checkout</Link>
         </>
