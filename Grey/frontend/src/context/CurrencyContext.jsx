@@ -10,7 +10,7 @@ const CURRENCIES = {
   INR: { symbol: "₹", rate: 83.2, locale: "en-IN" },
 };
 
-export function CurrencyProvider({ children, defaultCurrency = "USD" }) {
+export function CurrencyProvider({ children, defaultCurrency = "INR" }) {
   const [currency, setCurrency] = useState(defaultCurrency);
 
   const value = useMemo(() => {
