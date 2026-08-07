@@ -17,7 +17,7 @@ import Signup from "./pages/Signup";
 
 function App() {
   return (
-    <CurrencyProvider defaultCurrency="USD">
+    <CurrencyProvider defaultCurrency="INR">
       <HashRouter>
         <Routes>
           <Route path="/" element={<Home />} />
