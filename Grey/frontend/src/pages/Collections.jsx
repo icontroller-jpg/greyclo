@@ -23,7 +23,7 @@ export default function Collections() {
       <style>{`
         .col-page {
           min-height: 100vh;
-          background: #fff;
+          background: var(--black);
         }
 
         .col-topbar {
@@ -41,7 +41,7 @@ export default function Collections() {
           padding: 6px;
           margin: -6px;
           cursor: pointer;
-          color: #111;
+          color: var(--off-white);
           display: flex;
           align-items: center;
           justify-content: center;
@@ -67,12 +67,12 @@ export default function Collections() {
           font-size: 12px;
           letter-spacing: 0.08em;
           text-transform: uppercase;
-          color: rgba(17,17,17,0.35);
+          color: var(--concrete);
           padding: 4px 2px;
         }
 
         .col-filter-btn.active {
-          color: #2f6b3a;
+          color: var(--rust);
         }
 
         .col-filter-row + .col-filter-row {
@@ -94,7 +94,7 @@ export default function Collections() {
           padding: 60px 20px;
           font-family: 'Didact Gothic', sans-serif;
           font-size: 12px;
-          color: rgba(17,17,17,0.4);
+          color: var(--concrete);
         }
 
         .col-tile {
@@ -126,7 +126,7 @@ export default function Collections() {
           font-size: 12px;
           letter-spacing: 0.08em;
           text-transform: uppercase;
-          color: #111;
+          color: var(--off-white);
         }
 
         @media (max-width: 480px) {

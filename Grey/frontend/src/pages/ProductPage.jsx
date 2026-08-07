@@ -69,7 +69,7 @@ export default function ProductPage() {
       <style>{`
         .pp-page {
           min-height: 100vh;
-          background: #f4f2ee;
+          background: var(--black);
           display: flex;
           justify-content: center;
         }
@@ -77,7 +77,7 @@ export default function ProductPage() {
         .pp-wrap {
           width: 100%;
           max-width: 480px;
-          background: #fff;
+          background: var(--charcoal);
           min-height: 100vh;
           display: flex;
           flex-direction: column;
@@ -96,7 +96,7 @@ export default function ProductPage() {
           padding: 8px;
           margin: -8px;
           cursor: pointer;
-          color: #111;
+          color: var(--off-white);
           display: flex;
           align-items: center;
           justify-content: center;
@@ -144,7 +144,7 @@ export default function ProductPage() {
           width: 4px;
           height: 4px;
           border-radius: 50%;
-          background: #d4d0c8;
+          background: var(--line);
           border: none;
           padding: 0;
           cursor: pointer;
@@ -152,7 +152,7 @@ export default function ProductPage() {
         }
 
         .pp-dot.active {
-          background: #111;
+          background: var(--off-white);
           transform: scale(1.4);
         }
 
@@ -167,14 +167,14 @@ export default function ProductPage() {
           font-size: 13px;
           letter-spacing: 0.08em;
           text-transform: uppercase;
-          color: #111;
+          color: var(--off-white);
           margin: 0 0 6px;
         }
 
         .pp-price {
           font-family: 'Didact Gothic', sans-serif;
           font-size: 13px;
-          color: rgba(17,17,17,0.6);
+          color: var(--washed);
           margin: 0;
         }
 
@@ -182,7 +182,7 @@ export default function ProductPage() {
           background: none;
           border: none;
           cursor: pointer;
-          color: #111;
+          color: var(--off-white);
           padding: 18px;
           margin: 4px auto 0;
           display: flex;
@@ -210,7 +210,7 @@ export default function ProductPage() {
           font-family: 'Didact Gothic', sans-serif;
           font-size: 12px;
           line-height: 1.7;
-          color: rgba(17,17,17,0.65);
+          color: var(--washed);
           text-align: center;
           padding-bottom: 20px;
         }
@@ -218,8 +218,8 @@ export default function ProductPage() {
         .pp-cart-btn {
           width: calc(100% - 48px);
           margin: 0 24px 28px;
-          background: #111;
-          color: #fff;
+          background: var(--off-white);
+          color: var(--black);
           border: none;
           padding: 15px;
           font-family: 'Didact Gothic', sans-serif;
