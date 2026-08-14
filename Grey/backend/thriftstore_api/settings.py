@@ -96,6 +96,7 @@ CORS_ALLOWED_ORIGINS = [
     'http://127.0.0.1:5175',
     "https://greyclo-backend.onrender.com",
     'http://localhost:5175',
+    'https://greyclo.com',
 ]
 
 CSRF_TRUSTED_ORIGINS = [
@@ -103,6 +104,7 @@ CSRF_TRUSTED_ORIGINS = [
     "https://greyclo-backend.onrender.com",
     'http://127.0.0.1:8000',
     'http://localhost:8000',
+    'https://greyclo.com',
 ]
 
 
@@ -116,6 +118,7 @@ ALLOWED_HOSTS = [
     "greyclo-backend.onrender.com",
     "127.0.0.1",
     "localhost",
+    'https://greyclo.com',
 ]
 
 
